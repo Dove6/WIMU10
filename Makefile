@@ -25,6 +25,7 @@ ACTIVATE_VENV_FUNC := activate_venv() { \
 
 ensure_venv:
 	@{ \
+		set -e -o pipefail ; \
 		if [ ! -d $(VENV_DIR) ]; \
 		then \
 			$(PYTHON) -m venv $(VENV_DIR); \
@@ -37,6 +38,7 @@ ensure_venv:
 
 upgrade: ensure_venv
 	@{ \
+		set -e -o pipefail ; \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m pip install --disable-pip-version-check --upgrade --force-reinstall -r requirements.txt ;\
@@ -44,6 +46,7 @@ upgrade: ensure_venv
 
 freeze: ensure_venv
 	@{ \
+		set -e -o pipefail ; \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m pip freeze --exclude-editable > requirements.txt ;\
@@ -51,6 +54,7 @@ freeze: ensure_venv
 
 run: ensure_venv
 	@{ \
+		set -e -o pipefail ; \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) main.py ;\
@@ -58,6 +62,7 @@ run: ensure_venv
 
 test: ensure_venv
 	@{ \
+		set -e -o pipefail ; \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m pytest tests ;\
@@ -65,6 +70,7 @@ test: ensure_venv
 
 check: ensure_venv
 	@{ \
+		set -e -o pipefail ; \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m ruff check . ;\
@@ -72,6 +78,7 @@ check: ensure_venv
 
 format: ensure_venv
 	@{ \
+		set -e -o pipefail ; \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m ruff format . ;\
