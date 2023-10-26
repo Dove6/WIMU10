@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"terminal.integrated.defaultProfile.windows": "Git Bash",
+		"python.terminal.activateEnvironment": true,
+		"[python]": {
+			"editor.defaultFormatter": "charliermarsh.ruff",
+			"editor.formatOnSaveMode": "modifications"
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"charliermarsh.ruff"
+		]
+	}
+}

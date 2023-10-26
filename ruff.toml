@@ -1,0 +1,16 @@
+line-length = 130
+
+[lint]
+select = ["E", "F", "B"]
+ignore = ["E501"]
+unfixable = ["B"]
+
+[lint.per-file-ignores]
+"__init__.py" = ["E402", "F403"]
+"**/{tests,docs,tools}/*" = ["E402"]
+
+[lint.flake8-quotes]
+docstring-quotes = "double"
+
+[format]
+quote-style = "single"
