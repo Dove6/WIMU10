@@ -23,7 +23,7 @@ ACTIVATE_VENV_FUNC := activate_venv() { \
 	fi; \
 }
 
---ensure_venv:
+ensure_venv:
 	@{ \
 		if [ ! -d $(VENV_DIR) ]; \
 		then \
@@ -35,42 +35,42 @@ ACTIVATE_VENV_FUNC := activate_venv() { \
 		$(PYTHON) -m pip install -e . ;\
 	}
 
-upgrade: --ensure_venv
+upgrade: ensure_venv
 	@{ \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m pip install --disable-pip-version-check --upgrade --force-reinstall -r requirements.txt ;\
 	}
 
-freeze: --ensure_venv
+freeze: ensure_venv
 	@{ \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m pip freeze --exclude-editable > requirements.txt ;\
 	}
 
-run: --ensure_venv
+run: ensure_venv
 	@{ \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) main.py ;\
 	}
 
-test: --ensure_venv
+test: ensure_venv
 	@{ \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m pytest tests ;\
 	}
 
-check: --ensure_venv
+check: ensure_venv
 	@{ \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m ruff check . ;\
 	}
 
-format: --ensure_venv
+format: ensure_venv
 	@{ \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \

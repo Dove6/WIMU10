@@ -7,7 +7,7 @@ on:
     branches:
     - main
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
+      - name: Prepare virtual environment
+        run: make ensure_venv
       - name: Run pytest
         run: make test
