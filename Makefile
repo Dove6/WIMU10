@@ -46,7 +46,7 @@ freeze: --ensure_venv
 	@{ \
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
-		$(PYTHON) -m pip freeze > requirements.txt ;\
+		$(PYTHON) -m pip freeze --exclude-editable > requirements.txt ;\
 	}
 
 run: --ensure_venv
