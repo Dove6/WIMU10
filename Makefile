@@ -2,20 +2,19 @@
 	@bash ./scripts/ensure_venv.sh
 
 upgrade: --ensure_venv
-	@. env/Scripts/activate; pip install --disable-pip-version-check --upgrade --force-reinstall -r requirements.txt
+	@. .venv/Scripts/activate; python3 -m pip install --disable-pip-version-check --upgrade --force-reinstall -r requirements.txt
 
 freeze: --ensure_venv
-	@. env/Scripts/activate; pip freeze > requirements.txt
+	@. .venv/Scripts/activate; python3 -m pip freeze > requirements.txt
 
 run: --ensure_venv
-	@. env/Scripts/activate; python main.py
+	@. .venv/Scripts/activate; python3 main.py
 
 test: --ensure_venv
-	@. env/Scripts/activate; pytest tests
+	@. .venv/Scripts/activate; python3 -m pytest tests
 
 check: --ensure_venv
-	@. env/Scripts/activate; ruff check .
+	@. .venv/Scripts/activate; ruff check .
 
 format: --ensure_venv
-	@. env/Scripts/activate; ruff format .
-
+	@. .venv/Scripts/activate; ruff format .
