@@ -1,20 +1,78 @@
+VENV_DIR = ./.venv
+
+SHELL := /bin/bash
+ifeq ($(OS),Windows_NT)
+	PYTHON := python
+else
+	PYTHON := python3
+endif
+
+ACTIVATE_VENV_FUNC := activate_venv() { \
+	if [ "$$(expr substr $$(uname -s) 1 5)" == "Linux" ]; \
+	then \
+		. $(VENV_DIR)/bin/activate; \
+	else \
+		. $(VENV_DIR)/Scripts/activate; \
+	fi; \
+	if [ "$$(expr substr $$(uname -s) 1 5)" == "MINGW" ]; \
+	then \
+		VIRTUAL_ENV=$$(cygpath "$$VIRTUAL_ENV"); \
+		export VIRTUAL_ENV; \
+		PATH=$$(cygpath "$$PATH"); \
+		export PATH; \
+	fi; \
+}
+
 --ensure_venv:
-	@bash ./scripts/ensure_venv.sh
+	@{ \
+		if [ ! -d $(VENV_DIR) ]; \
+		then \
+			$(PYTHON) -m venv $(VENV_DIR); \
+		fi; \
+		eval '$(ACTIVATE_VENV_FUNC)'; \
+		activate_venv; \
+		$(PYTHON) -m pip install -r requirements.txt; \
+		$(PYTHON) -m pip install -e . ;\
+	}
 
 upgrade: --ensure_venv
-	@. .venv/Scripts/activate; python3 -m pip install --disable-pip-version-check --upgrade --force-reinstall -r requirements.txt
+	@{ \
+		eval '$(ACTIVATE_VENV_FUNC)'; \
+		activate_venv; \
+		$(PYTHON) -m pip install --disable-pip-version-check --upgrade --force-reinstall -r requirements.txt ;\
+	}
 
 freeze: --ensure_venv
-	@. .venv/Scripts/activate; python3 -m pip freeze > requirements.txt
+	@{ \
+		eval '$(ACTIVATE_VENV_FUNC)'; \
+		activate_venv; \
+		$(PYTHON) -m pip freeze > requirements.txt ;\
+	}
 
 run: --ensure_venv
-	@. .venv/Scripts/activate; python3 main.py
+	@{ \
+		eval '$(ACTIVATE_VENV_FUNC)'; \
+		activate_venv; \
+		$(PYTHON) main.py ;\
+	}
 
 test: --ensure_venv
-	@. .venv/Scripts/activate; python3 -m pytest tests
+	@{ \
+		eval '$(ACTIVATE_VENV_FUNC)'; \
+		activate_venv; \
+		$(PYTHON) -m pytest tests ;\
+	}
 
 check: --ensure_venv
-	@. .venv/Scripts/activate; ruff check .
+	@{ \
+		eval '$(ACTIVATE_VENV_FUNC)'; \
+		activate_venv; \
+		$(PYTHON) -m ruff check . ;\
+	}
 
 format: --ensure_venv
-	@. .venv/Scripts/activate; ruff format .
+	@{ \
+		eval '$(ACTIVATE_VENV_FUNC)'; \
+		activate_venv; \
+		$(PYTHON) -m ruff format . ;\
+	}
