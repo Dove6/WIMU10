@@ -1,0 +1,45 @@
+name: General list of actions
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - uses: actions/cache@v3
+        with:
+          path: .venv
+          key: ${{ runner.os }}-python3.10
+      - name: Prepare virtual environment
+        run: make ensure_venv
+      - name: Run ruff
+        run: make check
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: actions/cache@v3
+        with:
+          path: .venv
+          key: ${{ runner.os }}-python${{ matrix.python-version }}
+      - name: Prepare virtual environment
+        run: make ensure_venv
+      - name: Run pytest
+        run: make test
+      

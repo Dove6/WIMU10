@@ -1,0 +1,32 @@
+line-length = 130
+
+[lint]
+select = [
+    "E",  # pycodestyle
+    "W",  # pycodestyle
+    "F",  # pyflakes
+    "B",  # bugbear
+    "A",  # annotations
+]
+ignore = [
+    "E501",  # Line too long (82 > 79 characters)
+]
+unfixable = [
+    "B",  # bugbear
+    "A",  # annotations
+]
+
+[lint.per-file-ignores]
+"__init__.py" = [
+    "E402",  # Module level import not at top of file
+    "F403",  # 'from module import *' used; unable to detect undefined names
+]
+"tests/*" = [
+    "E402",  # Module level import not at top of file
+]
+
+[lint.flake8-quotes]
+docstring-quotes = "single"
+
+[format]
+quote-style = "single"
