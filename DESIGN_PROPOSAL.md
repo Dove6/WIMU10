@@ -11,7 +11,7 @@ Temat realizowany przez zespół nr 10 w składzie:
 
 Program ma przyjąć formę otwartoźródłowej biblioteki do języka Python.
 Decyzję taką podjęliśmy ze względu na potencjalne wykorzystanie w kodzie modeli uczenia maszynowego. Integracja takiego kodu z narzędziem wyłącznie konsolowym byłaby niepraktyczna.
-API biblioteki składać się będzie z zestawu funkcji do oceny jakości muzyki w formacie MIDI.
+API biblioteki składać się będzie z zestawu funkcji do oceny jakości muzyki w formacie MIDI [^back1999].
 
 Repozytorium zawierać będzie również przykładowy program (skrypt) konsolowy prezentujący sposób korzystania z API.
 Program pozwalał będzie na wyznaczenie metryk dla wybranych plików w trybie wsadowym.
@@ -112,6 +112,7 @@ Narzędzia:
 
 ## Bibliografia
 
+[^back1999]: ["Standard MIDI-File Format Spec. 1.1, updated", David Back, 1999](https://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html)
 [^dai2022]: ["What is missing in deep music generation? A study of repetition and structure in popular music", Shuqi Dai & Huiran Yu & Roger B. Dannenberg, 2022](https://arxiv.org/abs/2209.00182)  
 [^chi2020]: ["Generating Music with a Self-Correcting Non-Chronological Autoregressive Model", Wayne Chi et al., 2020](https://arxiv.org/abs/2008.08927)  
 [^dong2020]: ["MusPy: A toolkit for symbolic music generation", Hao-Wen Dong et al., 2020](https://arxiv.org/abs/2008.01951)  
