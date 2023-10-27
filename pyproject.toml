@@ -35,9 +35,6 @@ classifiers = [
 
 dependencies = [
     "muspy",
-    "sphinx",
-    "sphinx_rtd_theme",
-    "myst-parser"
 ]
 
 [project.urls]
