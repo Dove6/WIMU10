@@ -1,4 +1,3 @@
 def dummy_metric():
-    """Dummy metric.
-    """
+    """Dummy metric."""
     pass
