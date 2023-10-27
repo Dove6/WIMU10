@@ -59,10 +59,9 @@ Badania takie miałyby na celu określenie akceptowalnych i nieakceptowalnych za
 
 Zgrubny podział zbiorów danych:
 
+0. ręcznie spreparowane minimalne dane testowe do sprawdzania poprawności działania metryk,
 1. istniejące utwory w MIDI (podzbiór katalogu oferowanego w ramach MusPy),
 2. utwory w MIDI wygenerowane z użyciem istniejących, wytrenowanych modeli uczenia maszynowego (technologia GAN [^dong2017] lub Transformer [^huang2018]).
-
-Zbiór nr 1 możemy poszerzyć o własnoręcznie spreparowane dane reprezentujące utwory słabej jakości.
 
 Dla obu zbiorów wyznaczymy wartości metryk opracowanych przez nas, jak i obecnych już w MusPy (celem porównania).
 
@@ -81,7 +80,7 @@ Dla obu zbiorów wyznaczymy wartości metryk opracowanych przez nas, jak i obecn
 Język programowania: Python  
 Język opisu: Markdown
 
-Docelowy format: biblioteka z przykładem użycia w postaci narzędzia konsolowego.
+Docelowy format: biblioteka.
 
 Narzędzia:
 
