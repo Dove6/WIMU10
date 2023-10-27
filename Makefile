@@ -83,3 +83,13 @@ format: ensure_venv
 		activate_venv; \
 		$(PYTHON) -m ruff format . ;\
 	}
+
+docs: ensure_venv
+	@{ \
+		set -e -o pipefail ; \
+		eval '$(ACTIVATE_VENV_FUNC)'; \
+		activate_venv; \
+		cd docs; \
+		make html; \
+		cd ..; \
+	}

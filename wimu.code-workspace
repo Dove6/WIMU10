@@ -17,7 +17,8 @@
 			"ms-python.python",
 			"njpwerner.autodocstring",
 			"davidanson.vscode-markdownlint",
-			"charliermarsh.ruff"
+			"charliermarsh.ruff",
+			"executablebookproject.myst-highlight"
 		]
 	}
 }
