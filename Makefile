@@ -91,5 +91,5 @@ docs: ensure_venv
 		activate_venv; \
 		cd docs; \
 		make html; \
-		cd ..\
+		cd ..; \
 	}
