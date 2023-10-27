@@ -33,7 +33,12 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
 ]
 
-dependencies = ["muspy"]
+dependencies = [
+    "muspy",
+    "sphinx",
+    "sphinx_rtd_theme",
+    "myst-parser"
+]
 
 [project.urls]
 "Bug Reports" = "https://github.com/Dove6/WIMU10/issues"
