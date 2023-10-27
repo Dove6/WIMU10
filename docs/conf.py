@@ -12,6 +12,7 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('../'))
 
 
@@ -20,7 +21,6 @@ sys.path.insert(0, os.path.abspath('../'))
 project = 'WIMU 10'
 project_copyright = '2023, WIMU 10 Contributors'
 author = 'WIMU 10 Contributors'
-
 
 
 # -- General configuration ---------------------------------------------------
