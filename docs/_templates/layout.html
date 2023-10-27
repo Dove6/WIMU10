@@ -1,0 +1,21 @@
+{% extends "!layout.html" %}
+{% block extrahead %}
+  {% set path_list=[] %}
+  {% for p in pagename.split('/') %}
+    {% set _=path_list.append('../') %}
+  {% endfor %}
+  {% set _=path_list.pop() %}
+  {% set path_to_static=''.join(path_list) ~ '_static/' %}
+  {% macro make_good_path(file) -%}
+    {{ path_to_static ~ file }}
+  {%- endmacro %}
+  {{ super() }}
+  <link rel="preload" href="{{ make_good_path('css/fonts/fontawesome-webfont.woff2?af7ae505a9eed503f8b8e6982036873e') }}" as="font">
+  <link rel="stylesheet" href="{{ make_good_path('css/index.css') }}" type="text/css" />
+  <link rel="stylesheet" href="{{ make_good_path('css/dark.css') }}" media="(prefers-color-scheme: dark)" />
+  <script src="{{ make_good_path('js/scheme-switcher.js') }}"></script>
+{% endblock %}
+
+{% block footer %}
+    <script>createSchemeSwitcher()</script>
+{% endblock %}
