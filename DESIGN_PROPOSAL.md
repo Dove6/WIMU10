@@ -96,18 +96,18 @@ Narzędzia:
 
 ## Harmonogram i planowany postęp
 
-- 23.10 - 27.10 - etap 1: zgłoszenie propozycji rozwiązania, wstępna ogólna konfiguracja środowiska
-- 30.10 - 03.11 -
-- 06.11 - 10.11 -
-- 13.11 - 17.11 - etap 2: postęp analizy literaturowej, konfiguracja środowiska eksperymentalnego
-- 20.11 - 24.11 -
-- 27.11 - 01.12 -
-- 04.12 - 08.12 -
-- 11.12 - 15.12 -
-- 18.12 - 22.12 -
-- 03.01 - 05.01 -
-- 08.01 - 12.01 -
-- 15.01 - 19.01 -
+- 23.10 - 27.10 - etap 1: zgłoszenie propozycji rozwiązania, wstępna ogólna konfiguracja środowiska,
+- 30.10 - 03.11  
+  06.11 - 10.11  
+  13.11 - 17.11 - etap 2: postęp analizy literaturowej, konfiguracja środowiska eksperymentalnego,
+- 20.11 - 24.11  
+  27.11 - 01.12  
+  04.12 - 08.12  
+  11.12 - 15.12 - implementacja metryk, wypróbowanie metryk dla zestawów danych,
+- 18.12 - 22.12  
+  03.01 - 05.01 - analiza wyników metryk oraz ich porównanie wraz z wynikami innych metryk,
+- 08.01 - 12.01  
+  15.01 - 19.01 - sprawdzenie potencjalnych współzależności między metrykami naszymi a już istniejącymi,
 - 22.01 - 26.01 - etap finałowy
 
 ## Bibliografia
