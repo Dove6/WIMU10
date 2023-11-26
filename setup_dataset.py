@@ -14,7 +14,7 @@ DATASETS = {
 }
 
 
-def download_muspy_midi(dataset_name: str):
+def download_muspy_midi(dataset_name: str) -> mp.Dataset:
     """Download a MusPy MIDI dataset specified by name.
     Available datasets:
     * "lakh": mp.LakhMIDIDataset
@@ -27,7 +27,7 @@ def download_muspy_midi(dataset_name: str):
     if (dataset := DATASETS.get(dataset_name)) is None:
         raise ValueError(f"Expected one of {list(DATASETS.keys())}, got '{dataset_name}'")
     makedirs(path, exist_ok=True)
-    dataset(path, download_and_extract=True, cleanup=True)
+    return dataset(path, download_and_extract=True, cleanup=True, convert=True)
 
 
 if __name__ == '__main__':
