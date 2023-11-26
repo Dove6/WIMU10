@@ -61,6 +61,7 @@ def self_similarity(
                 notes.append(pitch)
         timestamps.append(notes)
     # Compare all notes, skip identical and reversed pairs
+    # The following matrix is computed, `_` indicate skipped comparisons
     #   0 1 2
     # 0 _ _ _
     # 1 x _ _

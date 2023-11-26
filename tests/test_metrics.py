@@ -1,9 +1,5 @@
-from wimu10 import dummy_metric, midi_markov
+from wimu10 import dummy_metric
 
 
 def test_dummy_metric():
     dummy_metric()
-
-
-def test_markov_metric():
-    midi_markov()

@@ -49,4 +49,4 @@ plt.show()  # type: ignore
 # Uncomment for playback
 # Requires `fluidsynth` to be installed
 # mp.download_musescore_soundfont()
-# music.write_audio("./tmp/000.wav")
+music.write_audio("./tmp/000.wav")
