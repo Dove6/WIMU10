@@ -74,7 +74,7 @@ W ten sposób otrzymaliśmy listę pięciu zbiorów danych nadających się do n
 * jakość plików MIDI/transkrypcji,
 * sposób pozyskania danych,
 * rozmiar zbioru danych,
-* rodzaj muzyki,
+* gatunek muzyki,
 * liczba instrumentów/kanałów,
 * ewentualna potrzeba dodatkowego przetwarzania,
 * popularność/wykorzystanie w innych pracach.
