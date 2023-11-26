@@ -11,6 +11,9 @@
 		"[python]": {
 			"editor.defaultFormatter": "charliermarsh.ruff",
 			"editor.formatOnSaveMode": "modifications"
+		},
+		"python.analysis.diagnosticSeverityOverrides": {
+			"reportMissingTypeStubs": "information",
 		}
 	},
 	"extensions": {

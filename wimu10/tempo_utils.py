@@ -1,8 +1,7 @@
-from typing import List
 import muspy as mp
 
 
-def timestep_to_realtime(music: mp.Music, timestep: int):
+def timestep_to_realtime(music: mp.Music, timestep: int|float):
     """
     music: Music that defines beat resolution and tempos
     timestap: Timestamp to convert

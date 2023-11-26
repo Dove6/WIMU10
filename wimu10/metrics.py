@@ -1,5 +1,11 @@
+from collections.abc import Callable, Collection
+from typing import Optional
+
 import muspy as mp
 import numpy as np
+
+Notes = Collection[int]
+Comparator = Callable[[Notes, Notes], int]
 
 
 def dummy_metric():
@@ -7,7 +13,7 @@ def dummy_metric():
     pass
 
 
-def score_matching_notes(a, b):
+def score_matching_notes(a: Notes, b: Notes) -> int:
     score = 0
     for c in a:
         if c in b:
@@ -15,17 +21,17 @@ def score_matching_notes(a, b):
     return score
 
 
-def score_perfect_match(a, b):
+def score_perfect_match(a: Notes, b: Notes) -> int:
     return 1 if a == b else 0
 
 
 def self_similarity(
     track: mp.Track,
-    resolution=16,
-    squash=True,
-    track_start=None,
-    track_end=None,
-    comparison_fn=score_perfect_match,
+    resolution: int = 16,
+    squash: bool = True,
+    track_start: Optional[int] = None,
+    track_end: Optional[int] = None,
+    comparison_fn: Comparator = score_perfect_match,
 ):
     """
     Calculates the top bottom of self similarity matrix.
@@ -44,9 +50,9 @@ def self_similarity(
     track_start = track_start or min(note.start for note in track.notes)
     track_end = track_end or max(note.end for note in track.notes)
     # Represent as notes playing at specific times
-    timestamps = []
+    timestamps: list[list[int]] = []
     for t in range(track_start, track_end, resolution):
-        notes = []
+        notes: list[int] = []
         for note in track.notes:
             if note.start <= t and t <= note.end:
                 pitch = note.pitch
