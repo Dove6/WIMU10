@@ -15,7 +15,7 @@ from wimu10.tempo_utils import timestep_to_realtime
 # Prepare music instance
 dataset = 'musicnet'
 download_muspy_midi(dataset)
-path = Path(DATA_RAW_PATH + dataset + '/_converted/000.json')
+path = Path(DATA_RAW_PATH + dataset + '/_converted/001.json')
 music = mp.load_json(path)
 
 # Calculate self similarity
@@ -34,7 +34,7 @@ for i in range(label_count):
     timestamp = (track_end - 1) * i / (label_count - 1)
     realtime = timestep_to_realtime(music, timestamp)
     seconds, minutes = modf(realtime)
-    label = f'{int(minutes)}m{floor(seconds * 60)}s'
+    label = f'{int(minutes) * 60 + floor(seconds * 60)}'
     label_indices.append(floor(timestamp / resolution))
     labels.append(label)
 
@@ -43,6 +43,9 @@ fig, ax = plt.subplots()  # type: ignore
 ax.imshow(scores, cmap='hot', interpolation='nearest')
 ax.set_xticks(label_indices, labels=labels)
 ax.set_yticks(label_indices, labels=labels)
+plt.title("Track's self similarity")
+plt.xlabel("Track [s]")
+plt.ylabel("Track [s]")
 fig.gca().invert_yaxis()
 plt.show()  # type: ignore
 
