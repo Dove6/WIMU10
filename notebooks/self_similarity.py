@@ -44,8 +44,8 @@ ax.imshow(scores, cmap='hot', interpolation='nearest')
 ax.set_xticks(label_indices, labels=labels)
 ax.set_yticks(label_indices, labels=labels)
 plt.title("Track's self similarity")
-plt.xlabel("Track [s]")
-plt.ylabel("Track [s]")
+plt.xlabel('Track [s]')
+plt.ylabel('Track [s]')
 fig.gca().invert_yaxis()
 plt.show()  # type: ignore
 
