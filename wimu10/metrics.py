@@ -19,7 +19,7 @@ def score_perfect_match(a, b):
     return 1 if a == b else 0
 
 
-def naive_midi_markov(
+def self_similarity(
     track: mp.Track,
     resolution=16,
     squash=True,
@@ -28,11 +28,16 @@ def naive_midi_markov(
     comparison_fn=score_perfect_match,
 ):
     """
+    Calculates the top bottom of self similarity matrix.
+    The diagonal is unset and the top triangle is symmetrical.
+
     track: Track to calculate the metric on.
     resolution: How dense the comparison is.
     squash: Whether to squash pitch to a single octave
     track_start: Override for track start
     track_end: Override for trask end
+    comparison_fn: Comparison function for 2 points in time
+
     returns: Self-similarity matrix
     """
     # Find bounds
