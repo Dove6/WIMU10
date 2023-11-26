@@ -74,7 +74,7 @@ check: ensure_venv
 		eval '$(ACTIVATE_VENV_FUNC)'; \
 		activate_venv; \
 		$(PYTHON) -m ruff check .; \
-		$(PYTHON) -m ruff format --check .; \
+		$(PYTHON) -m ruff format --diff .; \
 	}
 
 format: ensure_venv
