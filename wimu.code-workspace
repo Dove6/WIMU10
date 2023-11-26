@@ -7,9 +7,13 @@
 	"settings": {
 		"terminal.integrated.defaultProfile.windows": "Git Bash",
 		"python.terminal.activateEnvironment": true,
+		"python.analysis.typeCheckingMode": "strict",
 		"[python]": {
 			"editor.defaultFormatter": "charliermarsh.ruff",
 			"editor.formatOnSaveMode": "modifications"
+		},
+		"python.analysis.diagnosticSeverityOverrides": {
+			"reportMissingTypeStubs": "information",
 		}
 	},
 	"extensions": {
@@ -18,7 +22,8 @@
 			"njpwerner.autodocstring",
 			"davidanson.vscode-markdownlint",
 			"charliermarsh.ruff",
-			"executablebookproject.myst-highlight"
+			"executablebookproject.myst-highlight",
+			"ms-python.vscode-pylance"
 		]
 	}
 }
