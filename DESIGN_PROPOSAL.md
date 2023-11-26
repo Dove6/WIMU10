@@ -118,9 +118,9 @@ Narzędzia:
 - 23.10 - 27.10 - etap 1: zgłoszenie propozycji rozwiązania, wstępna ogólna konfiguracja środowiska,
 - 30.10 - 03.11  
   06.11 - 10.11  
-  13.11 - 17.11 - etap 2: postęp analizy literaturowej, konfiguracja środowiska eksperymentalnego,
-- 20.11 - 24.11  
-  27.11 - 01.12  
+  13.11 - 17.11
+  20.11 - 24.11 - etap 2: postęp analizy literaturowej, konfiguracja środowiska eksperymentalnego,  
+- 27.11 - 01.12  
   04.12 - 08.12  
   11.12 - 15.12 - implementacja metryk, wypróbowanie metryk dla zestawów danych,
 - 18.12 - 22.12  
