@@ -33,13 +33,14 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
 ]
 
-dependencies = [
-    "muspy",
-]
+dependencies = ["muspy"]
 
 [project.urls]
 "Bug Reports" = "https://github.com/Dove6/WIMU10/issues"
 "Source" = "https://github.com/Dove6/WIMU10"
 
-[tool.setuptools]
-packages = ["wimu10"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["wimu10"]
+exclude = []
+namespaces = false
