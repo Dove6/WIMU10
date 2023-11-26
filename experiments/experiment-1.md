@@ -1,14 +1,14 @@
-# Experiment 1 - self similarity
+# Eksperyment 1 - samopodobieństwo
 
-For this experiment we wanted to get used to MusPy API as well as prove some of our assumptions about music containing repeating fragments (aka leitmotif).
+Celem niniejszego eksperymentu jest zaznajomienie się z API biblioteki MusPy oraz, co najważniejsze, potwierdzenie naszych wstępnych założeń dotyczących powtarzalności motywów (przewodnich) w muzyce.
 
-The visual metric is crude and it compares music to itself in repeating intervals. In this experiment we used a 1/16 note as interval.
-The result is a triangular matrix conatining information about similarity (exact same notes being played) between different timestamps.
-The matrix contains no diagonal elements, since they're perfectly similar. The other triangle is not calculated, because it is perfectly symmetrical to the first triangle, assuming the similarity metric is similar as well (which it is in our case).
+Metryka na tym etapie jest mocno uproszczonym wyrażeniem podobieństwa utworu przesuniętego o kolejne jednostki czasowego do siebie samego. Jako jednostka przesunięcia została użyta szesnastka.
+Wynikiem jest binarna macierz górnotrójkątna, gdzie obecność wartości (1) oznacza wystąpienie identycznej nuty w różnych punktach czasowych.
+Sprawdzenie przekątnej macierzy zostało pominięte, ponieważ utwór bez przesunięcia zawsze jest w pełni podobny do samego siebie. Ograniczenie metryki do macierzy trójkątnej wynika z symetryczności porównania.
 
-We represented the matrix as a heatmap for a sample song and this is the result:
+Przykład użycia metryki wizualizuje poniższa grafika wygenerowana dla utworu o indeksie 001 ze zbioru MusicNet:
 ![a](../images/experiment-1.png)
 
-The colored diagonal lines represent repeating notes at different times of the composition, which is exactly what we were looking for.
+Zaznaczone kolorowymi prostokątami linie przekątne równoległe do głównej przekątnej macierzy reprezentują powtarzający się motyw w ścieżce dźwiękowej (tj. identyczną sekwencję kolejnych nut). Istnienie takich linii potwierdza nasze przypuszczenia.
 
-To run the experiment run `python -m notebooks.self_similarity`.
+Eksperyment możliwy jest do powtórzenia za pomocą polecenia `python -m notebooks.self_similarity`.
