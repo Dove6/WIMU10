@@ -65,6 +65,26 @@ Zgrubny podział zbiorów danych:
 
 Dla obu zbiorów wyznaczymy wartości metryk opracowanych przez nas, jak i obecnych już w MusPy (celem porównania).
 
+### Analiza wybranych zbiorów danych dostępnych w MusPy
+Przy analizie zbiorów danych ustaliliśmy następujące ograniczenia:
+* zbiory muszą być dostępne poprzez interfejs MusPy,
+* interesują nas tylko utwory w formacie MIDI,
+* nie uwzględniamy chorałów i hymnów.
+W ten sposób otrzymaliśmy listę pięciu zbiorów danych nadających się do naszego zadania, których analizę zamieszczamy poniżej. Zagadnienia, które uznaliśmy za ważne, to:
+* jakość plików MIDI/transkrypcji,
+* sposób pozyskania danych,
+* rozmiar zbioru danych,
+* gatunek muzyki,
+* liczba instrumentów/kanałów,
+* ewentualna potrzeba dodatkowego przetwarzania,
+* popularność/wykorzystanie w innych pracach.
+
+- The Lakh MIDI Dataset [^raffel2016dataset] [^raffel2016] - Największy z dostępnych zbiorów danych. Zawiera 176 581 różnych utworów w formacie MIDI (>5000h), 45 tys. z których występuje również w zestawie danych "Million Song Dataset" [^bertin-mahieux2011]. Zbiór zawiera wyłącznie pliki pobrane z Internetu z publicznie dostępnych źródeł bez zachowania kontroli jakości. W konsekwencji w zbiorze znajdują się także pliki o niepoprawnym formacie, wyjątkowo krótkie lub niskiej jakości. Na podstawie tego zestawu danych powstał zestaw "Lakh Pianoroll Dataset" [^dong2017dataset] [^dong2017], który po oczyszczeniu zawiera 174 154 plików. Ten zestaw został później wykorzystany w wytrenowaniu modelu MuseGAN [^dong2017].
+- MAESTRO [^hawthorne2018] - Zestaw zawierający 1282 utworów (~201h) muzyki klasycznej na fortepian. Udostępnia zarówno pliki w formacie MIDI, jak również ich odpowiedniki w formacie WAV oraz metadane w formacie CSV i JSON zawierające informacje o artystach, czasy trwania oraz nazwy utworów. Zbiór powstał przy współpracy z organizatorami konkursu "International Piano-e-Competition", podczas którego wszystkie utwory były wykonywane na fortepianach Yamaha Disklavier nagrywających MIDI. Autorzy nie podają informacji o procedurach przygotowania danych do użycia, a artykuły wykorzystujące MAESTRO [^bittner2022] nie wskazują, by jakiekolwiek przetwarzanie wstępne było potrzebne do pracy z zestawem.
+- NES-MDB (Nintendo Entertainment System Music Database) [^donahue2018] - Zestaw składający się z 5278 różnych utworów (~46h) zebranych z 397 gier na konsolę NES (Nintendo Entertainment System). Pliki MIDI zostały otrzymane przez konwersję z natywnego dla NES formatu muzyki (instrukcji wbudowanego czterokanałowego syntezatora dźwięku). W porównaniu z pozostałymi zestawami danych, bardzo mała ilość artykułów wykorzystuje NES-MDB.
+- MusicNet [^thickstun2017] - Zbiór 330 wieloinstrumentalnych utworów muzyki klasycznej (~30h) zawierający pliki MIDI, WAV, CSV (utwory w postaci etykiet nut) i metadane. W skład wchodzą utwory następujących kompozytorów: Bach, Beethoven, Faure, Brahms, Haydn, Cambini, Dvorak, Mozart oraz Schubert. Pliki MIDI to publicznie dostępne, ręcznie wykonane transkrypcje zapisu nutowego. W artykule "MT3: Multi-Task Multitrack Music Transcription" [^gardner2022] w zestawieniu z kilkoma innymi zestawami danych (MAESTROv3 [^hawthorne2018], Slakh2100 [^manilow2019], Cerberus4 [^manilow2020], GuitarSet [^xi2018], URMP [^li2018]), model do transkrypcji muzyki wytrenowany na MusicNet osiągnął najniższe wyniki. Autorzy artykułu tłumaczyli to niewielkim rozmiarem materiału uczącego i złym wyrównaniem w czasie dźwięków z nagrań i odpowiadających im etykiet. Druga z wymienionych wad nie ma dla nas znaczenia, ponieważ operujemy wyłącznie na reprezentacji symbolicznej.
+- EMOPIA (A Multi-Modal Pop Piano Dataset For Emotion Recognition and Emotion-based Music Generation) [^hung2021] - Zestawienie 1087 fragmentów 387 utworów (~11h), skupione na postrzeganiu emocji w muzyce popowej/filmowej na pianino. Wszystkie fragmenty zostały przydzielone do jednej z czterech grup na podstawie ich pozytywności ("valence") oraz pobudzenia ("arousal"). Transkrypcję z audio do MIDI otrzymano przy wykorzystaniu modelu AI [^kong2020].
+
 ## Planowany zakres eksperymentów
 
 1. Zbadamy graniczne oraz umiarkowane wartości niektórych metryk poprzez spreparowanie plików MIDI o odpowiedniej charakterystyce.
@@ -98,9 +118,9 @@ Narzędzia:
 - 23.10 - 27.10 - etap 1: zgłoszenie propozycji rozwiązania, wstępna ogólna konfiguracja środowiska,
 - 30.10 - 03.11  
   06.11 - 10.11  
-  13.11 - 17.11 - etap 2: postęp analizy literaturowej, konfiguracja środowiska eksperymentalnego,
-- 20.11 - 24.11  
-  27.11 - 01.12  
+  13.11 - 17.11
+  20.11 - 24.11 - etap 2: postęp analizy literaturowej, konfiguracja środowiska eksperymentalnego,  
+- 27.11 - 01.12  
   04.12 - 08.12  
   11.12 - 15.12 - implementacja metryk, wypróbowanie metryk dla zestawów danych,
 - 18.12 - 22.12  
@@ -120,3 +140,18 @@ Narzędzia:
 [^xiong2023]: ["A Comprehensive Survey for Evaluation Methodologies of AI-Generated Music", Zeyu Xiong et al., 2023](https://arxiv.org/abs/2308.13736)  
 [^dong2017]: ["MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment", Hao-Wen Dong et al., 2017](https://arxiv.org/abs/1709.06298)  
 [^huang2018]: ["Music Transformer: Generating music with long-term structure", Cheng-Zhi Anna Huang et al., 2018](https://arxiv.org/abs/1809.04281)  
+[^raffel2016dataset]: ["The Lakh MIDI Dataset", Collin Raffel, accessed 14.11.2023](https://colinraffel.com/projects/lmd/)
+[^raffel2016]: ["Learning-Based Methods for Comparing Sequences, with Applications to Audio-to-MIDI Alignment and Matching", Collin Raffel, 2016](https://academiccommons.columbia.edu/doi/10.7916/D8N58MHV)
+[^dong2017dataset]: ["Lakh Pianoroll Dataset", Hao-Wen Dong et al., accessed 17.11.2023](https://salu133445.github.io/lakh-pianoroll-dataset/)
+[^hawthorne2019]: ["Enabling Factorized Piano Music Modeling and Generation with the MAESTRO Dataset", Curtis Hawthorne et al., 2019](https://openreview.net/forum?id=r1lYRjC9F7)
+[^bittner2022]: ["A Lightweight Instrument-Agnostic Model for Polyphonic Note Transcription and Multipitch Estimation", Rachel M. Bittner et al., 2022](https://arxiv.org/abs/2203.09893)
+[^donahue2018]: ["The NES Music Database: A multi-instrumental dataset with expressive performance attributes", Donahue et al., 2018](https://arxiv.org/abs/1806.04278)
+[^thickstun2017]: ["Learning Features of Music from Scratch", John Thickstun et al., 2017](https://arxiv.org/abs/1611.09827)
+[^gardner2022]: ["MT3: Multi-Task Multitrack Music Transcription", Josh Gardner et al., 2022](https://arxiv.org/abs/2111.03017v4)
+[^hung2021]: ["EMOPIA: A Multi-Modal Pop Piano Dataset For Emotion Recognition and Emotion-based Music Generation", Hsiao-Tzu Hung et al., 2021](https://arxiv.org/abs/2108.01374)
+[^bertin-mahieux2011]: ["The Million Song Dataset", Thierry Bertin-Mahieux, 2011](https://academiccommons.columbia.edu/doi/10.7916/D8NZ8J07)
+[^manilow2019]: ["Cutting Music Source Separation Some Slakh: A Dataset to Study the Impact of Training Data Quality and Quantity", Ethan Manilow et al., 2019](https://arxiv.org/abs/1909.08494)
+[^manilow2020]: ["Simultaneous Separation and Transcription of Mixtures with Multiple Polyphonic and Percussive Instruments", Ethan Manilow et al., 2020](https://arxiv.org/abs/1910.12621)
+[^xi2018]: [Guitarset: A Dataset for Guitar Transcription, Qingyang Xi et al., 2018](https://archives.ismir.net/ismir2018/paper/000188.pdf)
+[^li2018]: ["Creating a multi-track classical music performance dataset for multi-modal music analysis: Challenges, insights, and applications", Bochen Li et al., 2018](https://labsites.rochester.edu/air/publications/li2018creating.pdf)
+[^kong2020]: ["High-resolution Piano Transcription with Pedals by Regressing Onset and Offset Times", Qiuqiang Kong et al., 2020](https://arxiv.org/abs/2010.01815)
