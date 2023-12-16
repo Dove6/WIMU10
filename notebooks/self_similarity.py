@@ -15,11 +15,12 @@ from wimu10.tempo_utils import timestep_to_realtime
 # Prepare music instance
 dataset = 'musicnet'
 download_muspy_midi(dataset)
-path = Path(DATA_RAW_PATH + dataset + '/_converted/001.json')
+path = Path(DATA_RAW_PATH + dataset + '/_converted/003.json')
 music = mp.load_json(path)
 
 # Calculate self similarity
-track = music.tracks[1]
+print([len(track) for track in music.tracks])
+track = music.tracks[0]
 track_end = music.get_end_time()
 
 # Since resolution is in quarternotes, probing is in 1/16 notes
@@ -52,4 +53,4 @@ plt.show()  # type: ignore
 # Uncomment for playback
 # Requires `fluidsynth` to be installed
 # mp.download_musescore_soundfont()
-music.write_audio('./tmp/000.wav')
+# music.write_audio('./tmp/000.wav')
