@@ -13,6 +13,67 @@ def dummy_metric():
     pass
 
 
+def chords_histogram(
+    track: mp.Track,
+    error_frame: int = 75
+):
+    """
+    Returns histogram of chords.
+    
+    track: Track to retrive the chord histogram from.
+    error_frame: How much time can pass between single notes for them to still me in the same chord. 
+    """
+    chords = get_chords_list(track, error_frame)
+    chord_hist:dict = {}
+    
+    for chord in chords:
+        chord_str = '/'.join(map(str,chord))
+        if chord_str in chord_hist:
+            chord_hist[chord_str] += 1
+        else:
+            chord_hist[chord_str] = 1
+
+    return chord_hist
+
+def chords_transition_matrix():
+    """
+    _summary_
+    """
+    pass
+
+
+# Case not done-> Two notes are played for long and then halfway through two more notes are added until the end, 
+# That indeed creates a cord.
+def get_chords_list(
+    track: mp.Track,
+    error_frame: int = 75
+) -> list[list[int]]:
+    """
+    Returns list of all found chords within the track.
+    
+    track: Track to retrive the chords list from.
+    error_frame: How much time can pass between single notes for them to still me in the same chord. 
+    """
+    notes_list = track.notes
+    time_max:int = 0
+    chord_list: list[list[int]] = []#potencjalnie zmień na chord
+    possible_chord: list[int] = []
+    for id_note in range(0, len(notes_list) - 1):
+        
+        if notes_list[id_note].time > time_max:
+            time_max = notes_list[id_note].time + error_frame
+            complete_chord(chord_list, possible_chord)   
+            possible_chord = []
+        possible_chord.append(notes_list[id_note].pitch)
+        if id_note == len(notes_list) -1:
+            complete_chord(chord_list, possible_chord)            
+    return chord_list
+
+def complete_chord(list_of_chords: list[list[int]], new_chord:list[int]) -> None:
+    if len(new_chord) > 2:
+        new_chord.sort()
+        list_of_chords.append(new_chord)
+
 def score_matching_notes(a: Notes, b: Notes) -> int:
     score = 0
     for c in a:
