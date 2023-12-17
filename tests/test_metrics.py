@@ -1,5 +1,1 @@
-from wimu10 import dummy_metric
-
-
-def test_dummy_metric():
-    dummy_metric()
+from wimu10 import compute_self_similarity
