@@ -7,10 +7,10 @@ import muspy as mp
 import numpy as np
 
 from setup_dataset import DATA_RAW_PATH, download_muspy_midi
-from wimu10 import chords_histogram, chords_transition_matrix, get_chords_list
+from wimu10 import chords_histogram, chords_transition_matrix
 
-def visualize_pianoroll(music: mp.Music) -> None:
-    mp.show_pianoroll(music)
+def visualize_pianoroll(ex_music: mp.Music) -> None:
+    mp.show_pianoroll(ex_music)
     plt.show()
 
 def visualize_chord_transition(chords_dict:dict, transition_matrix:np.ndarray) -> None:
@@ -21,7 +21,7 @@ def visualize_chord_transition(chords_dict:dict, transition_matrix:np.ndarray) -
     ax.figure.colorbar(im, ax=ax)
     # Set labels
     ax.set_xticks(np.arange(len(labels)), labels=labels)
-    ax.set_yticks(np.arange(len(labels)), labels=labels) 
+    ax.set_yticks(np.arange(len(labels)), labels=labels)
     plt.setp(ax.get_xticklabels(), rotation=90, ha="right",
              rotation_mode="anchor")
     ax.invert_yaxis()
@@ -33,7 +33,7 @@ def visualize_chord_histogram(chords_hist:dict):
     plt.xticks(rotation=90)
     plt.title("Chord histogram")
     plt.show()
-    
+
 # Prepare music instance
 dataset = 'musicnet'
 download_muspy_midi(dataset)
@@ -43,8 +43,8 @@ track = music.tracks[0]
 
 
 ### Transition matrix testing
-chords_dict, transition_matrix = chords_transition_matrix(track, "piano")
-visualize_chord_transition(chords_dict, transition_matrix)
+ch_dict, t_matrix = chords_transition_matrix(track, "piano")
+visualize_chord_transition(ch_dict, t_matrix)
 
 ### Histogram testing
 chords = chords_histogram(track, "piano")
