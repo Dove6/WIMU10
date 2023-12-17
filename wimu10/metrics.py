@@ -75,9 +75,6 @@ def get_unique_chords(chords_list:list[str]):
             chord_id += 1
     return unique_chords
     
-
-# Case not done-> Two notes are played for long and then halfway through two more notes are added until the end, 
-# That indeed creates a cord.
 def get_chords_list(
     track: mp.Track,
     error_frame: int = 75
@@ -88,21 +85,42 @@ def get_chords_list(
     track: Track to retrive the chords list from.
     error_frame: How much time can pass between single notes for them to still me in the same chord. 
     """
-    notes_list = track.notes
-    time_max:int = 0
-    chord_list: list[list[int]] = []#potencjalnie zmień na chord
-    possible_chord: list[int] = []
-    for id_note in range(0, len(notes_list) - 1):
+    notes = track.notes
+    frame_end: int = 0
+    curr_played_notes: list[mp.Note] = []
+    chord_list: list[list[int]] = []
+
+    for curr_note_id in range(0, len(notes)):
         
-        if notes_list[id_note].time > time_max:
-            time_max = notes_list[id_note].time + error_frame
-            complete_chord(chord_list, possible_chord)   
-            possible_chord = []
-        possible_chord.append(notes_list[id_note].pitch)
-        if id_note == len(notes_list) -1:
-            complete_chord(chord_list, possible_chord)            
+        good_ones =[]
+        bad_ones = []
+        for note in curr_played_notes:
+            if (note.time + note.duration) > notes[curr_note_id].time:
+                good_ones.append(note)
+            else:
+                bad_ones.append(note.time + note.duration)
+        curr_played_notes[:] = good_ones
+        
+        if len(bad_ones) > 0 and (notes[curr_note_id].time - max(bad_ones) > error_frame ) and len(curr_played_notes) >=3:
+            add_chord_to_list(chord_list, curr_played_notes)
+        if len(curr_played_notes) < 2:
+            curr_played_notes.append(notes[curr_note_id])
+        else: 
+            if notes[curr_note_id].time > frame_end:
+                frame_end = notes[curr_note_id].time + error_frame
+            curr_played_notes.append(notes[curr_note_id])
+            if (len(notes) -1) == curr_note_id or notes[curr_note_id+1].time > frame_end :
+                add_chord_to_list(chord_list, curr_played_notes)
+
     return chord_list
 
+def add_chord_to_list(list_of_chords: list[list[int]], curr_notes:list[mp.Note]):
+    new_chord = []
+    for chord in curr_notes:
+        new_chord.append(chord.pitch)
+    new_chord.sort()
+    list_of_chords.append(new_chord)
+    
 def complete_chord(list_of_chords: list[list[int]], new_chord:list[int]) -> None:
     if len(new_chord) > 2:
         new_chord.sort()
@@ -115,10 +133,8 @@ def score_matching_notes(a: Notes, b: Notes) -> int:
             score += 1
     return score
 
-
 def score_perfect_match(a: Notes, b: Notes) -> int:
     return 1 if a == b else 0
-
 
 def self_similarity(
     track: mp.Track,
