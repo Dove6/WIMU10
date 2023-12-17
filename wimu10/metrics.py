@@ -1,6 +1,6 @@
 from collections.abc import Callable, Collection
 from typing import Optional
-
+from typing_extensions import Literal
 import muspy as mp
 import numpy as np
 
@@ -15,20 +15,27 @@ def dummy_metric():
 
 def chords_histogram(
     track: mp.Track,
+    readable_output: Literal["midi", "piano"] = "midi", 
     error_frame: int = 75
 ):
     """
     Returns histogram of chords.
     
     track: Track to retrive the chord histogram from.
+    readable_output: Whether to output the given chords in MIDI number format or key notations for piano.
     error_frame: How much time can pass between single notes for them to still me in the same chord. 
     """
     chords = get_chords_list(track, error_frame)
     chord_hist:dict = {}
     
-    chords = stringify_chords(chords)
+    if readable_output == "midi":
+        str_chords = midi_chords(chords)
+    elif readable_output == "piano":
+        str_chords =  piano_chords(chords)
+    else:
+        return Exception("Format not supported")
     
-    for chord in chords:
+    for chord in str_chords:
         if chord in chord_hist:
             chord_hist[chord] += 1
         else:
@@ -37,14 +44,24 @@ def chords_histogram(
 
 def chords_transition_matrix(
     track: mp.Track,
+    readable_output: Literal["midi", "piano"] = "midi", 
     error_frame: int = 75
 ):
     """
     Calculates the transition matrix for the chords in a track.
     Returns dictionary of unique chords and transition matrix.
+    
+    track: Track to retrive the chord histogram from.
+    readable_output: Whether to output the given chords in MIDI number format or key notations for piano.
+    error_frame: How much time can pass between single notes for them to still me in the same chord. 
     """
     chords = get_chords_list(track, error_frame)
-    str_chords = stringify_chords(chords)
+    if readable_output == "midi":
+        str_chords = midi_chords(chords)
+    elif readable_output == "piano":
+        str_chords =  piano_chords(chords)
+    else:
+        return Exception("Format not supported")
     chords_dict = get_unique_chords(str_chords)
     
     # Unique chords count
@@ -63,8 +80,18 @@ def chords_transition_matrix(
             row[:] = [f/s for f in row]
     return chords_dict, M
 
-def stringify_chords(chords_list:list[list[int]]) -> list[str]:
+def midi_chords(chords_list:list[list[int]]) -> list[str]:
     return [ '/'.join(map(str,chord)) for chord in chords_list]
+
+def piano_chords(chords_list:list[list[int]]) -> list[str]:
+    return [ '/'.join([map_midi_to_piano(midi_number) for midi_number in chord]) for chord in chords_list]
+
+def map_midi_to_piano(midi_note:int):
+    notes_mapping = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+    if 21 <= midi_note <= 108:
+        return notes_mapping[midi_note%12] + str(midi_note//12 - 1)
+    else:
+        return Exception("midi_number beyond piano bounds")
 
 def get_unique_chords(chords_list:list[str]):
     chord_id = 0
@@ -80,7 +107,8 @@ def get_chords_list(
     error_frame: int = 75
 ) -> list[list[int]]:
     """
-    Returns list of all found chords within the track.
+    Returns list of chords within a track.
+    The returned chords are a lists of MIDI note numbers.
     
     track: Track to retrive the chords list from.
     error_frame: How much time can pass between single notes for them to still me in the same chord. 
@@ -92,26 +120,31 @@ def get_chords_list(
 
     for curr_note_id in range(0, len(notes)):
         
-        good_ones =[]
-        bad_ones = []
+        # Deleting stale notes that are not longer playing
+        fresh_notes =[]
+        smallest_pause = 0
         for note in curr_played_notes:
             if (note.time + note.duration) > notes[curr_note_id].time:
-                good_ones.append(note)
+                fresh_notes.append(note)
             else:
-                bad_ones.append(note.time + note.duration)
-        curr_played_notes[:] = good_ones
+                smallest_pause = max(smallest_pause, note.time + note.duration)
+        curr_played_notes[:] = fresh_notes
         
-        if len(bad_ones) > 0 and (notes[curr_note_id].time - max(bad_ones) > error_frame ) and len(curr_played_notes) >=3:
+        # Adding chords for instances of subtarcting and adding notes, ex: D3/E3/F3/G3 -> D3/E3/F3 -> D3/E3/F3/A3/B3
+        if smallest_pause > 0 and len(curr_played_notes) >=3 and (notes[curr_note_id].time - smallest_pause > error_frame ):
             add_chord_to_list(chord_list, curr_played_notes)
+        
+        # Adding notes until we have a chord
         if len(curr_played_notes) < 2:
             curr_played_notes.append(notes[curr_note_id])
+            
+        # Adding a chord for when more than 2 notes are played simultaneously.
         else: 
             if notes[curr_note_id].time > frame_end:
                 frame_end = notes[curr_note_id].time + error_frame
             curr_played_notes.append(notes[curr_note_id])
             if (len(notes) -1) == curr_note_id or notes[curr_note_id+1].time > frame_end :
                 add_chord_to_list(chord_list, curr_played_notes)
-
     return chord_list
 
 def add_chord_to_list(list_of_chords: list[list[int]], curr_notes:list[mp.Note]):
@@ -121,11 +154,6 @@ def add_chord_to_list(list_of_chords: list[list[int]], curr_notes:list[mp.Note])
     new_chord.sort()
     list_of_chords.append(new_chord)
     
-def complete_chord(list_of_chords: list[list[int]], new_chord:list[int]) -> None:
-    if len(new_chord) > 2:
-        new_chord.sort()
-        list_of_chords.append(new_chord)
-
 def score_matching_notes(a: Notes, b: Notes) -> int:
     score = 0
     for c in a:
