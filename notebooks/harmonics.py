@@ -20,10 +20,8 @@ def visualize_chord_transition(chords_dict:dict, transition_matrix:np.ndarray) -
     labels = chords_dict.keys()
     _, ax = plt.subplots()
     im = ax.imshow(transition_matrix)
-    
     # Create colorbar
     ax.figure.colorbar(im, ax=ax)
-    
     # Set labels
     ax.set_xticks(np.arange(len(labels)), labels=labels)
     ax.set_yticks(np.arange(len(labels)), labels=labels) 
@@ -40,9 +38,9 @@ def visualize_chord_histogram(chords_hist:dict):
     plt.show()
     
 # Prepare music instance
-dataset = 'maestro'
+dataset = 'musicnet'
 download_muspy_midi(dataset)
-path = Path(DATA_RAW_PATH + dataset + '/_converted/0001.json')
+path = Path(DATA_RAW_PATH + dataset + '/_converted/149.json')
 music = mp.load_json(path)
 track = music.tracks[0]
 
