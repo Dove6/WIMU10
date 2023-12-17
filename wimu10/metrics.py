@@ -19,11 +19,11 @@ def chords_histogram(
 ):
     """
     Returns histogram of chords.
-    
+
     track: Track to retrive the chord histogram from.
-    readable_output: Whether to output the given chords 
+    readable_output: Whether to output the given chords
     in MIDI number format or key notations for piano.
-    error_frame: How much time can pass between single notes for them to still me in the same chord. 
+    error_frame: How much time can pass between single notes for them to still me in the same chord.
     """
     chords = get_chords_list(track, error_frame)
     chord_hist:dict = {}
@@ -50,11 +50,11 @@ def chords_transition_matrix(
     """
     Calculates the transition matrix for the chords in a track.
     Returns dictionary of unique chords and transition matrix.
-    
+
     track: Track to retrive the chord histogram from.
     readable_output: Whether to output the given chords
     in MIDI number format or key notations for piano.
-    error_frame: How much time can pass between single notes for them to still me in the same chord. 
+    error_frame: How much time can pass between single notes for them to still me in the same chord.
     """
     chords = get_chords_list(track, error_frame)
     if readable_output == "midi":
@@ -111,9 +111,9 @@ def get_chords_list(
     """
     Returns list of chords within a track.
     The returned chords are a lists of MIDI note numbers.
-    
+
     track: Track to retrive the chords list from.
-    error_frame: How much time can pass between single notes for them to still me in the same chord. 
+    error_frame: How much time can pass between single notes for them to still me in the same chord.
     """
     notes = track.notes
     frame_end: int = 0
