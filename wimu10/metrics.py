@@ -14,26 +14,27 @@ def dummy_metric():
 
 def chords_histogram(
     track: mp.Track,
-    readable_output: str = "midi", 
+    readable_output: str = "midi",
     error_frame: int = 75
 ):
     """
     Returns histogram of chords.
     
     track: Track to retrive the chord histogram from.
-    readable_output: Whether to output the given chords in MIDI number format or key notations for piano.
+    readable_output: Whether to output the given chords 
+    in MIDI number format or key notations for piano.
     error_frame: How much time can pass between single notes for them to still me in the same chord. 
     """
     chords = get_chords_list(track, error_frame)
     chord_hist:dict = {}
-    
+
     if readable_output == "midi":
         str_chords = midi_chords(chords)
     elif readable_output == "piano":
         str_chords =  piano_chords(chords)
     else:
         return Exception("Format not supported")
-    
+
     for chord in str_chords:
         if chord in chord_hist:
             chord_hist[chord] += 1
@@ -43,7 +44,7 @@ def chords_histogram(
 
 def chords_transition_matrix(
     track: mp.Track,
-    readable_output: str = "midi", 
+    readable_output: str = "midi",
     error_frame: int = 75
 ):
     """
@@ -51,7 +52,8 @@ def chords_transition_matrix(
     Returns dictionary of unique chords and transition matrix.
     
     track: Track to retrive the chord histogram from.
-    readable_output: Whether to output the given chords in MIDI number format or key notations for piano.
+    readable_output: Whether to output the given chords
+    in MIDI number format or key notations for piano.
     error_frame: How much time can pass between single notes for them to still me in the same chord. 
     """
     chords = get_chords_list(track, error_frame)
@@ -62,28 +64,29 @@ def chords_transition_matrix(
     else:
         return Exception("Format not supported")
     chords_dict = get_unique_chords(str_chords)
-    
+
     # Unique chords count
     u_count = len(chords_dict)
-    
+
     # Generate transition matrix
-    M = np.zeros((u_count,u_count))
-    
+    matrix = np.zeros((u_count,u_count))
+
     for (i,j) in zip(str_chords, str_chords[1:]):
-        M[chords_dict[i]][chords_dict[j]] += 1
-    
+        matrix[chords_dict[i]][chords_dict[j]] += 1
+
     # Convert to probability
-    for row in M:
+    for row in matrix:
         s = sum(row)
         if s > 0:
             row[:] = [f/s for f in row]
-    return chords_dict, M
+    return chords_dict, matrix
 
 def midi_chords(chords_list:list[list[int]]) -> list[str]:
     return [ '/'.join(map(str,chord)) for chord in chords_list]
 
 def piano_chords(chords_list:list[list[int]]) -> list[str]:
-    return [ '/'.join([map_midi_to_piano(midi_number) for midi_number in chord]) for chord in chords_list]
+    return [ '/'.join([map_midi_to_piano(midi_number) for midi_number in chord])
+            for chord in chords_list]
 
 def map_midi_to_piano(midi_note:int):
     notes_mapping = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
@@ -100,7 +103,7 @@ def get_unique_chords(chords_list:list[str]):
             unique_chords[chord] = chord_id
             chord_id += 1
     return unique_chords
-    
+
 def get_chords_list(
     track: mp.Track,
     error_frame: int = 75
@@ -118,7 +121,7 @@ def get_chords_list(
     chord_list: list[list[int]] = []
 
     for curr_note_id in range(0, len(notes)):
-        
+
         # Deleting stale notes that are not longer playing
         fresh_notes =[]
         smallest_pause = 0
@@ -128,17 +131,18 @@ def get_chords_list(
             else:
                 smallest_pause = max(smallest_pause, note.time + note.duration)
         curr_played_notes[:] = fresh_notes
-        
-        # Adding chords for instances of subtarcting and adding notes, ex: D3/E3/F3/G3 -> D3/E3/F3 -> D3/E3/F3/A3/B3
-        if smallest_pause > 0 and len(curr_played_notes) >=3 and (notes[curr_note_id].time - smallest_pause > error_frame ):
+
+        # Adding chords for instances of subtarcting and adding notes,
+        # ex: D3/E3/F3/G3 -> D3/E3/F3 -> D3/E3/F3/A3/B3
+        if smallest_pause > 0 and len(curr_played_notes) >=3 and (notes[curr_note_id].time - smallest_pause > error_frame):
             add_chord_to_list(chord_list, curr_played_notes)
-        
+
         # Adding notes until we have a chord
         if len(curr_played_notes) < 2:
             curr_played_notes.append(notes[curr_note_id])
-            
+
         # Adding a chord for when more than 2 notes are played simultaneously.
-        else: 
+        else:
             if notes[curr_note_id].time > frame_end:
                 frame_end = notes[curr_note_id].time + error_frame
             curr_played_notes.append(notes[curr_note_id])
@@ -152,7 +156,7 @@ def add_chord_to_list(list_of_chords: list[list[int]], curr_notes:list[mp.Note])
         new_chord.append(chord.pitch)
     new_chord.sort()
     list_of_chords.append(new_chord)
-    
+
 def score_matching_notes(a: Notes, b: Notes) -> int:
     score = 0
     for c in a:
