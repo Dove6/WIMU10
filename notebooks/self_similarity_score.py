@@ -25,7 +25,7 @@ for song_idx, song in enumerate(test_songs):
     except Exception:
         continue
 
-    print(f"Processing song {song_idx}.")
+    print(f'Processing song {song_idx}.')
     # Since resolution is in quarternotes, probing is in 1/16 notes
     resolution = int(music.resolution / 4)
     track_end = music.get_end_time()
@@ -36,5 +36,5 @@ for song_idx, song in enumerate(test_songs):
         score = compute_self_similarity(track, resolution=resolution, track_end=track_end)
         total_scores[song][track_idx] = score
 
-with open("results/self_similarity_score.json", 'wt') as f:
+with open('results/self_similarity_score.json', 'wt') as f:
     json.dump(total_scores, f, indent=4)

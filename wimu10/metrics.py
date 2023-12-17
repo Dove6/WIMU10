@@ -73,7 +73,7 @@ def self_similarity_matrix(
     return scores
 
 
-def self_similarity_groups(matrix: ArrayLike, min_length: int = 8, step: int = 1, **_) -> SimilarityGroups:
+def self_similarity_groups(matrix: ArrayLike, min_length: int = 64, step: int = 1, **_) -> SimilarityGroups:
     """
     Extracts groups from similarity matrix based on provided requirements.
 
