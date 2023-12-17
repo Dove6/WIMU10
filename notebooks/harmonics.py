@@ -1,12 +1,9 @@
 """
-Manual experiments for chord based metrics - wip
+Manual experiments for chord based metrics
 """
-
 from pathlib import Path
-import pypianoroll as piano
 import matplotlib.pyplot as plt
 import muspy as mp
-import seaborn as sns
 import numpy as np
 
 from setup_dataset import DATA_RAW_PATH, download_muspy_midi
@@ -46,11 +43,11 @@ track = music.tracks[0]
 
 
 ### Transition matrix testing
-chords_dict, transition_matrix = chords_transition_matrix(track)
+chords_dict, transition_matrix = chords_transition_matrix(track, "piano")
 visualize_chord_transition(chords_dict, transition_matrix)
 
 ### Histogram testing
-chords = chords_histogram(track)
+chords = chords_histogram(track, "piano")
 visualize_chord_histogram(chords)
 
 ### Visualizing pianoroll

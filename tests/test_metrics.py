@@ -5,7 +5,7 @@ import muspy as mp
 def test_dummy_metric():
     dummy_metric()
 
-def test_chords_case1():
+def test_get_chords_case_1():
     test_case = mp.Track(notes= [
         mp.Note(time = 1000, pitch= 1, duration=500, velocity=100),
         mp.Note(time = 1300, pitch= 2, duration=100, velocity=100),
@@ -16,7 +16,7 @@ def test_chords_case1():
     result_chords = get_chords_list(test_case)
     assert test_case_chords == result_chords
     
-def test_chords_case2():
+def test_get_chords_case_2():
     test_case = mp.Track(notes= [
         mp.Note(time = 1000, pitch= 1, duration=500, velocity=100),
         mp.Note(time = 1001, pitch= 2, duration=500, velocity=100),
@@ -28,7 +28,7 @@ def test_chords_case2():
     result_chords = get_chords_list(test_case)
     assert test_case_chords == result_chords
  
-def test_chords_case3():
+def test_get_chords_case3_():
     test_case = mp.Track(notes= [
         mp.Note(time = 1000, pitch= 1, duration=500, velocity=100),
         mp.Note(time = 1001, pitch= 2, duration=500, velocity=100),
@@ -43,7 +43,7 @@ def test_chords_case3():
     result_chords = get_chords_list(test_case)
     assert test_case_chords == result_chords
     
-def test_chords_case4():
+def test_get_chords_case4_():
     test_case = mp.Track(notes= [
         mp.Note(time = 1000, pitch= 1, duration=500, velocity=100),
         mp.Note(time = 1001, pitch= 2, duration=500, velocity=100),
@@ -59,7 +59,7 @@ def test_chords_case4():
     result_chords = get_chords_list(test_case)
     assert test_case_chords == result_chords
     
-def test_chords_case5():
+def test_get_chords_case5_():
     test_case = mp.Track(notes= [
         mp.Note(time = 1000, pitch= 1, duration=1000, velocity=100),
         mp.Note(time = 1001, pitch= 2, duration=1000, velocity=100),
@@ -73,7 +73,7 @@ def test_chords_case5():
     result_chords = get_chords_list(test_case)
     assert test_case_chords == result_chords
 
-def test_chords_case6():
+def test_get_chords_case6_():
     test_case = mp.Track(notes= [
         mp.Note(time = 1000, pitch= 1, duration=1000, velocity=100),
         mp.Note(time = 1000, pitch= 10, duration=1000, velocity=100),
@@ -88,7 +88,7 @@ def test_chords_case6():
     result_chords = get_chords_list(test_case)
     assert test_case_chords == result_chords
 
-def test_chords_case7():
+def test_get_chords_case7_():
     test_case = mp.Track(notes= [
         mp.Note(time = 1000, pitch= 1, duration=500, velocity=100),
         mp.Note(time = 1001, pitch= 2, duration=500, velocity=100),
