@@ -66,18 +66,20 @@ Zgrubny podział zbiorów danych:
 Dla obu zbiorów wyznaczymy wartości metryk opracowanych przez nas, jak i obecnych już w MusPy (celem porównania).
 
 ### Analiza wybranych zbiorów danych dostępnych w MusPy
+
 Przy analizie zbiorów danych ustaliliśmy następujące ograniczenia:
-* zbiory muszą być dostępne poprzez interfejs MusPy,
-* interesują nas tylko utwory w formacie MIDI,
-* nie uwzględniamy chorałów i hymnów.
+
+- zbiory muszą być dostępne poprzez interfejs MusPy,
+- interesują nas tylko utwory w formacie MIDI,
+- nie uwzględniamy chorałów i hymnów.
 W ten sposób otrzymaliśmy listę pięciu zbiorów danych nadających się do naszego zadania, których analizę zamieszczamy poniżej. Zagadnienia, które uznaliśmy za ważne, to:
-* jakość plików MIDI/transkrypcji,
-* sposób pozyskania danych,
-* rozmiar zbioru danych,
-* gatunek muzyki,
-* liczba instrumentów/kanałów,
-* ewentualna potrzeba dodatkowego przetwarzania,
-* popularność/wykorzystanie w innych pracach.
+- jakość plików MIDI/transkrypcji,
+- sposób pozyskania danych,
+- rozmiar zbioru danych,
+- gatunek muzyki,
+- liczba instrumentów/kanałów,
+- ewentualna potrzeba dodatkowego przetwarzania,
+- popularność/wykorzystanie w innych pracach.
 
 - The Lakh MIDI Dataset [^raffel2016dataset] [^raffel2016] - Największy z dostępnych zbiorów danych. Zawiera 176 581 różnych utworów w formacie MIDI (>5000h), 45 tys. z których występuje również w zestawie danych "Million Song Dataset" [^bertin-mahieux2011]. Zbiór zawiera wyłącznie pliki pobrane z Internetu z publicznie dostępnych źródeł bez zachowania kontroli jakości. W konsekwencji w zbiorze znajdują się także pliki o niepoprawnym formacie, wyjątkowo krótkie lub niskiej jakości. Na podstawie tego zestawu danych powstał zestaw "Lakh Pianoroll Dataset" [^dong2017dataset] [^dong2017], który po oczyszczeniu zawiera 174 154 plików. Ten zestaw został później wykorzystany w wytrenowaniu modelu MuseGAN [^dong2017].
 - MAESTRO [^hawthorne2019] - Zestaw zawierający 1282 utworów (~201h) muzyki klasycznej na fortepian. Udostępnia zarówno pliki w formacie MIDI, jak również ich odpowiedniki w formacie WAV oraz metadane w formacie CSV i JSON zawierające informacje o artystach, czasy trwania oraz nazwy utworów. Zbiór powstał przy współpracy z organizatorami konkursu "International Piano-e-Competition", podczas którego wszystkie utwory były wykonywane na fortepianach Yamaha Disklavier nagrywających MIDI. Autorzy nie podają informacji o procedurach przygotowania danych do użycia, a artykuły wykorzystujące MAESTRO [^bittner2022] nie wskazują, by jakiekolwiek przetwarzanie wstępne było potrzebne do pracy z zestawem.
