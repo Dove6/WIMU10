@@ -1,6 +1,5 @@
 from collections.abc import Callable, Collection
 from typing import Optional
-from typing_extensions import Literal
 import muspy as mp
 import numpy as np
 
@@ -15,7 +14,7 @@ def dummy_metric():
 
 def chords_histogram(
     track: mp.Track,
-    readable_output: Literal["midi", "piano"] = "midi", 
+    readable_output: str = "midi", 
     error_frame: int = 75
 ):
     """
@@ -44,7 +43,7 @@ def chords_histogram(
 
 def chords_transition_matrix(
     track: mp.Track,
-    readable_output: Literal["midi", "piano"] = "midi", 
+    readable_output: str = "midi", 
     error_frame: int = 75
 ):
     """
