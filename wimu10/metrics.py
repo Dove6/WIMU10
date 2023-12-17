@@ -26,21 +26,55 @@ def chords_histogram(
     chords = get_chords_list(track, error_frame)
     chord_hist:dict = {}
     
+    chords = stringify_chords(chords)
+    
     for chord in chords:
-        chord_str = '/'.join(map(str,chord))
-        if chord_str in chord_hist:
-            chord_hist[chord_str] += 1
+        if chord in chord_hist:
+            chord_hist[chord] += 1
         else:
-            chord_hist[chord_str] = 1
-
+            chord_hist[chord] = 1
     return chord_hist
 
-def chords_transition_matrix():
+def chords_transition_matrix(
+    track: mp.Track,
+    error_frame: int = 75
+):
     """
-    _summary_
+    Calculates the transition matrix for the chords in a track.
+    Returns dictionary of unique chords and transition matrix.
     """
-    pass
+    chords = get_chords_list(track, error_frame)
+    str_chords = stringify_chords(chords)
+    chords_dict = get_unique_chords(str_chords)
+    
+    # Unique chords count
+    u_count = len(chords_dict)
+    
+    # Generate transition matrix
+    M = np.zeros((u_count,u_count))
+    
+    for (i,j) in zip(str_chords, str_chords[1:]):
+        M[chords_dict[i]][chords_dict[j]] += 1
+    
+    # Convert to probability
+    for row in M:
+        s = sum(row)
+        if s > 0:
+            row[:] = [f/s for f in row]
+    return chords_dict, M
 
+def stringify_chords(chords_list:list[list[int]]) -> list[str]:
+    return [ '/'.join(map(str,chord)) for chord in chords_list]
+
+def get_unique_chords(chords_list:list[str]):
+    chord_id = 0
+    unique_chords:dict = {}
+    for chord in chords_list:
+        if unique_chords.get(chord) is None:
+            unique_chords[chord] = chord_id
+            chord_id += 1
+    return unique_chords
+    
 
 # Case not done-> Two notes are played for long and then halfway through two more notes are added until the end, 
 # That indeed creates a cord.
