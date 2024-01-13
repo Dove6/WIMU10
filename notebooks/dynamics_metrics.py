@@ -62,9 +62,6 @@ for piece_idx, piece in enumerate(test_pieces):
                 'level_transition_matrix': level_transition_matrix.tolist(),
             }
         )
-        # plt.imshow(level_transition_matrix)
-        # plt.bar(range(len(bins)), bins)
-        # plt.show()
 
 with open('results/dynamics_metrics.json', 'wt') as f:
     json.dump(total_scores, f, indent=4)

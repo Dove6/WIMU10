@@ -7,7 +7,7 @@
 	"settings": {
 		"terminal.integrated.defaultProfile.windows": "Git Bash",
 		"python.terminal.activateEnvironment": true,
-		"python.analysis.typeCheckingMode": "strict",
+		"python.analysis.typeCheckingMode": "basic",
 		"[python]": {
 			"editor.defaultFormatter": "charliermarsh.ruff",
 			"editor.formatOnSaveMode": "modifications"
