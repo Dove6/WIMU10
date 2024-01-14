@@ -10,6 +10,12 @@ License<LICENSE.md>
 Metrics<api/metrics.md>
 ```
 
+```{toctree}
+:hidden:
+:caption: Analiza
+Tokenizacja<research/tokenization.md>
+```
+
 ```{include} ../README.md
 :relative-docs: docs/
 :relative-images:
