@@ -36,12 +36,14 @@ def calc_statistics(tokenizer: MIDITokenizer, path: str, vocab_size: int|None = 
 if __name__ == '__main__':
     tokenizers_bpe = (REMI(), REMIPlus(), MIDILike(), TSD(), Structured(), MMM())
     tokenizers = (*tokenizers_bpe, CPWord(), Octuple(), MuMIDI())
+    """
     # Calculate statistics for tokenized datasets.
     for tokenizer in tokenizers:
         results = calc_statistics(tokenizer, 'results/')
         print(*results)
         results = calc_statistics(tokenizer, 'results_max/')
         print(*results)
+    """
     # Calculate statistics for tokenized datasets with BPE applied.
     # NOTE: Not every miditok tokenizer supports BPE.
     for tokenizer in tokenizers_bpe:
@@ -49,6 +51,7 @@ if __name__ == '__main__':
         print(*results)
         results = calc_statistics(tokenizer, 'results_max_bpe/')
         print(*results)
+    """
     # Calculate statistics for tokenized datasets with BPE applied with variable vocabulary size.
     # NOTE: Only run for REMI.
     for vocab_size in (500, 1000, 1500, 2000, 3000):
@@ -56,3 +59,4 @@ if __name__ == '__main__':
         print(*results)
         results = calc_statistics(REMI(), 'results_max_bpe_var/', vocab_size)
         print(*results)
+    """

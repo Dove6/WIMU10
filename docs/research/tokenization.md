@@ -41,8 +41,8 @@ Tokenizacje przeprowadzono dla każdego tokenizatora w czterech konfiguracjach, 
 
 * Domyślna - z [domyślnymi parametrami tokenizatorów](https://miditok.readthedocs.io/en/latest/bases.html#miditok.TokenizerConfig) w [MidiTok][miditok],
 * Maksymalna - z dodatkowymi parametrami (poniżej) pozwalającymi na uzyskanie większej liczby typów tokenów,
-* Domyślna + [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla BPE ustawiono na 500,
-* Maksymalna + [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla BPE ustawiono na 1500.
+* Domyślna + [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla BPE ustawiono na 1000,
+* Maksymalna + [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla BPE ustawiono na 1000.
 
 ```py
 config = miditok.TokenizerConfig(
@@ -119,7 +119,7 @@ Należy uruchomić je w następującej kolejności:
 |[MuMIDI][mumidi]         |              21:49 |      76830938 |              60212.33 |+25.8% |
 |[MMM][mmm]               |              20:18 |      25870241 |              20274.48 |  +<1% |
 
-### Domyślna tokenizacja, [Byte Pair Encoding][bpe]
+### [Byte Pair Encoding][bpe] dla domyślnej tokenizacji
 
 |Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana |
 |-------------------------|--------------------|---------------|-----------------------|-------|
@@ -133,7 +133,7 @@ Należy uruchomić je w następującej kolejności:
 |[MuMIDI][mumidi]         |                N/A |           N/A |                   N/A |   N/A |
 |[MMM][mmm]               |              03:09 |      16506871 |              12936.42 |-36.1% |
 
-### Maksymalna tokenizacja, [Byte Pair Encoding][bpe]
+### [Byte Pair Encoding][bpe] dla maksymalnej tokenizacji
 
 |Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana |
 |-------------------------|--------------------|---------------|-----------------------|-------|
@@ -147,7 +147,7 @@ Należy uruchomić je w następującej kolejności:
 |[MuMIDI][mumidi]         |                N/A |           N/A |                   N/A |   N/A |
 |[MMM][mmm]               |              03:37 |      13927012 |              10914.59 |-46.1% |
 
-### Domyślna tokenizacja, [Byte Pair Encoding][bpe], różny rozmiar słowozbioru
+### [Byte Pair Encoding][bpe] dla domyślnej tokenizacji, różny rozmiar słowozbioru
 
 |Rozmiar słowozbioru|Tokenizator             |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana |
 |-------------------|------------------------|--------------------|---------------|-----------------------|-------|
@@ -157,7 +157,7 @@ Należy uruchomić je w następującej kolejności:
 |              2000 |[REMI][remi]            |              03:35 |      14153797 |              11092.32 |-44.7% |
 |              3000 |[REMI][remi]            |              04:20 |      13149400 |              11220.76 |-48.7% |
 
-### Maksymalna tokenizacja, [Byte Pair Encoding][bpe], różny rozmiar słowozbioru
+### [Byte Pair Encoding][bpe] dla maksymalnej tokenizacji, różny rozmiar słowozbioru
 
 |Rozmiar słowozbioru|Tokenizator             |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana |
 |-------------------|------------------------|--------------------|---------------|-----------------------|-------|

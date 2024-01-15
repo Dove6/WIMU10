@@ -40,5 +40,8 @@ if __name__ == '__main__':
     # Vocabulary size was roughly based on tokenized dataset vocabulary.
     # NOTE: Not every miditok tokenizer supports BPE.
     for tokenizer_class in (REMI, REMIPlus, MIDILike, TSD, Structured, MMM):
-        learn_and_apply_bpe(tokenizer_class(), 'results/', 500)
-        learn_and_apply_bpe(tokenizer_class(config), 'results_max/', 1500)
+        name = tokenizer_class().__class__.__name__
+        print(f'BPE on default {name} with vocabulary size of 1000')
+        learn_and_apply_bpe(tokenizer_class(), 'results/', 1000)
+        print(f'BPE on maximum {name} with vocabulary size of 1000')
+        learn_and_apply_bpe(tokenizer_class(config), 'results_max/', 1000)

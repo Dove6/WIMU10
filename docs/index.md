@@ -12,7 +12,7 @@ Metrics<api/metrics.md>
 
 ```{toctree}
 :hidden:
-:caption: Analiza
+:caption: Eksperymenty
 Tokenizacja<research/tokenization.md>
 ```
 
