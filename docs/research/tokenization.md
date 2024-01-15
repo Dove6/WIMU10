@@ -84,9 +84,10 @@ Skrypty, które wykorzystano do przeprowadzenia badań, dostępne są w repozyto
 [`/notebooks/tokenizers/`](https://github.com/Dove6/WIMU10/tree/main/notebooks/tokenizers/).
 Należy uruchomić je w następującej kolejności:
 
-1. [`run_tokenizers.py`](https://github.com/Dove6/WIMU10/tree/main/notebooks/tokenizers/run_tokenizers.py)
-2. [`run_bpe.py`](https://github.com/Dove6/WIMU10/tree/main/notebooks/tokenizers/run_bpe.py)
-3. [`get_statistics.py`](https://github.com/Dove6/WIMU10/tree/main/notebooks/tokenizers/get_statistics.py)
+1. [`tokenize.py`](https://github.com/Dove6/WIMU10/tree/main/notebooks/tokenizers/tokenize.py)
+2. [`bpe.py`](https://github.com/Dove6/WIMU10/tree/main/notebooks/tokenizers/bpe.py)
+3. [`bpe_var_voc.py`](https://github.com/Dove6/WIMU10/tree/main/notebooks/tokenizers/bpe_var_voc.py)
+4. [`statistics.py`](https://github.com/Dove6/WIMU10/tree/main/notebooks/tokenizers/statistics.py)
 
 ## Wyniki tokenizacji
 
@@ -106,45 +107,70 @@ Należy uruchomić je w następującej kolejności:
 
 ### Maksymalna tokenizacja
 
-|Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana     |
-|-------------------------|--------------------|---------------|-----------------------|-----------|
-|[REMI][remi]             |              20:02 |      27505955 |              21556.39 |     +7.4% |
-|[REMIPlus][remiplus]     |              20:43 |      34570154 |              27092.60 |     +4.7% |
-|[MIDI-Like][midilike]    |              20:58 |      28404955 |              22260.94 |     +2.6% |
-|[TSD][tsd]               |              21:00 |      26111058 |              20463.21 |     +3.4% |
-|[Structured][structured] |              18:12 |      28158348 |              22067.67 |       +0% |
-|[CPWord][cpword]         |              25:33 |      11531100 |               9036.91 |      +<1% |
-|[Octuple][octuple]       |              20:13 |       7039587 |               5516.92 |       +0% |
-|[MuMIDI][mumidi]         |              21:49 |      76830938 |              60212.33 |    +25.8% |
-|[MMM][mmm]               |              20:18 |      25870241 |              20274.48 |      +<1% |
+|Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana |
+|-------------------------|--------------------|---------------|-----------------------|-------|
+|[REMI][remi]             |              20:02 |      27505955 |              21556.39 | +7.4% |
+|[REMIPlus][remiplus]     |              20:43 |      34570154 |              27092.60 | +4.7% |
+|[MIDI-Like][midilike]    |              20:58 |      28404955 |              22260.94 | +2.6% |
+|[TSD][tsd]               |              21:00 |      26111058 |              20463.21 | +3.4% |
+|[Structured][structured] |              18:12 |      28158348 |              22067.67 |   +0% |
+|[CPWord][cpword]         |              25:33 |      11531100 |               9036.91 |  +<1% |
+|[Octuple][octuple]       |              20:13 |       7039587 |               5516.92 |   +0% |
+|[MuMIDI][mumidi]         |              21:49 |      76830938 |              60212.33 |+25.8% |
+|[MMM][mmm]               |              20:18 |      25870241 |              20274.48 |  +<1% |
 
 ### Domyślna tokenizacja, [Byte Pair Encoding][bpe]
 
-|Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana     |
-|-------------------------|--------------------|---------------|-----------------------|-----------|
-|[REMI][remi]             |              02:50 |      17941505 |              14060.74 |    -30.0% |
-|[REMIPlus][remiplus]     |              06:52 |      19156670 |              15013.06 |    -42.0% |
-|[MIDI-Like][midilike]    |              03:19 |      21322928 |              16710.76 |    -23.0% |
-|[TSD][tsd]               |              02:48 |      16411012 |              12861.29 |    -35.0% |
-|[Structured][structured] |              04:28 |      16735686 |              13115.74 |    -40.6% |
-|[CPWord][cpword]         |                N/A |           N/A |                   N/A |       N/A |
-|[Octuple][octuple]       |                N/A |           N/A |                   N/A |       N/A |
-|[MuMIDI][mumidi]         |                N/A |           N/A |                   N/A |       N/A |
-|[MMM][mmm]               |              03:09 |      16506871 |              12936.42 |    -36.1% |
+|Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana |
+|-------------------------|--------------------|---------------|-----------------------|-------|
+|[REMI][remi]             |              02:50 |      17941505 |              14060.74 |-30.0% |
+|[REMIPlus][remiplus]     |              06:52 |      19156670 |              15013.06 |-42.0% |
+|[MIDI-Like][midilike]    |              03:19 |      21322928 |              16710.76 |-23.0% |
+|[TSD][tsd]               |              02:48 |      16411012 |              12861.29 |-35.0% |
+|[Structured][structured] |              04:28 |      16735686 |              13115.74 |-40.6% |
+|[CPWord][cpword]         |                N/A |           N/A |                   N/A |   N/A |
+|[Octuple][octuple]       |                N/A |           N/A |                   N/A |   N/A |
+|[MuMIDI][mumidi]         |                N/A |           N/A |                   N/A |   N/A |
+|[MMM][mmm]               |              03:09 |      16506871 |              12936.42 |-36.1% |
 
 ### Maksymalna tokenizacja, [Byte Pair Encoding][bpe]
 
-|Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana     |
-|-------------------------|--------------------|---------------|-----------------------|-----------|
-|[REMI][remi]             |              04:30 |      16270492 |              12751.17 |    -36.5% |
-|[REMIPlus][remiplus]     |              09:43 |      17089939 |              13393.37 |    -48.2% |
-|[MIDI-Like][midilike]    |              05:10 |      17884298 |              14015.91 |    -35.4% |
-|[TSD][tsd]               |              03:52 |      14450541 |              11324.88 |    -42.8% |
-|[Structured][structured] |              04:51 |      13796644 |              10812.42 |    -51.0% |
-|[CPWord][cpword]         |                N/A |           N/A |                   N/A |       N/A |
-|[Octuple][octuple]       |                N/A |           N/A |                   N/A |       N/A |
-|[MuMIDI][mumidi]         |                N/A |           N/A |                   N/A |       N/A |
-|[MMM][mmm]               |              03:37 |      13927012 |              10914.59 |    -46.1% |
+|Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana |
+|-------------------------|--------------------|---------------|-----------------------|-------|
+|[REMI][remi]             |              04:30 |      16270492 |              12751.17 |-36.5% |
+|[REMIPlus][remiplus]     |              09:43 |      17089939 |              13393.37 |-48.2% |
+|[MIDI-Like][midilike]    |              05:10 |      17884298 |              14015.91 |-35.4% |
+|[TSD][tsd]               |              03:52 |      14450541 |              11324.88 |-42.8% |
+|[Structured][structured] |              04:51 |      13796644 |              10812.42 |-51.0% |
+|[CPWord][cpword]         |                N/A |           N/A |                   N/A |   N/A |
+|[Octuple][octuple]       |                N/A |           N/A |                   N/A |   N/A |
+|[MuMIDI][mumidi]         |                N/A |           N/A |                   N/A |   N/A |
+|[MMM][mmm]               |              03:37 |      13927012 |              10914.59 |-46.1% |
+
+### Domyślna tokenizacja, [Byte Pair Encoding][bpe], różny rozmiar słowozbioru
+
+|Rozmiar słowozbioru|Tokenizator             |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana |
+|-------------------|------------------------|--------------------|---------------|-----------------------|-------|
+|               500 |[REMI][remi]            |              02:38 |      17941505 |              14060.74 |-29.9% |
+|              1000 |[REMI][remi]            |              03:14 |      15897898 |              12459.17 |-37.9% |
+|              1500 |[REMI][remi]            |              03:22 |      14850838 |              11638.59 |-42.0% |
+|              2000 |[REMI][remi]            |              03:35 |      14153797 |              11092.32 |-44.7% |
+|              3000 |[REMI][remi]            |              04:20 |      13149400 |              11220.76 |-48.7% |
+
+### Maksymalna tokenizacja, [Byte Pair Encoding][bpe], różny rozmiar słowozbioru
+
+|Rozmiar słowozbioru|Tokenizator             |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana |
+|-------------------|------------------------|--------------------|---------------|-----------------------|-------|
+|               500 |[REMI][remi]            |              03:14 |      19780309 |              15501.81 |-22.8% |
+|              1000 |[REMI][remi]            |              04:05 |      17436890 |              13665.27 |-31.9% |
+|              1500 |[REMI][remi]            |              04:16 |      16270492 |              12751.17 |-36.5% |
+|              2000 |[REMI][remi]            |              04:43 |      15473773 |              12126.78 |-39.6% |
+|              3000 |[REMI][remi]            |              05:45 |      14317688 |              11220.76 |-44.1% |
+
+:::{admonition} Informacja
+:class: tip
+Kolumna `Zmiana` podaje procentową zmianę sumarycznej liczby tokenów względem domyślnej tokenizacji bez BPE.
+:::
 
 ## Analiza wyników
 

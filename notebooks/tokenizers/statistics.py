@@ -1,5 +1,6 @@
 """
 A notebook to collect statistical information on a tokenized dataset.
+This notebook assumes that tokenized datasets already exist, i.e. because `tokenize.py`, `bpe.py` and `bpe_var_voc.py` notebooks were run.
 """
 
 from itertools import chain
@@ -9,10 +10,12 @@ from pathlib import Path
 from typing import Any, List
 
 
-def calc_statistics(tokenizer: MIDITokenizer, path: str):
+def calc_statistics(tokenizer: MIDITokenizer, path: str, vocab_size: int|None = None):
     """Calculate token statistics for each tokenizer."""
     token_lengths: List[int] = []
     name = tokenizer.__class__.__name__
+    if vocab_size is not None:
+        name += '/' + str(vocab_size)
     for file in list(Path('./data/' + path + name).glob('**/*.json')):
         with open(file, 'r') as file:
             # NOTE: Different tokenizers save output as arrays of different shapes.
@@ -27,7 +30,7 @@ def calc_statistics(tokenizer: MIDITokenizer, path: str):
     sum_length = sum(token_lengths)
     # Get average token count for a file.
     avg_length = sum_length / len(token_lengths)
-    return name, path, sum_length, avg_length
+    return path + name, sum_length, avg_length
 
 
 if __name__ == '__main__':
@@ -45,4 +48,11 @@ if __name__ == '__main__':
         results = calc_statistics(tokenizer, 'results_bpe/')
         print(*results)
         results = calc_statistics(tokenizer, 'results_max_bpe/')
+        print(*results)
+    # Calculate statistics for tokenized datasets with BPE applied with variable vocabulary size.
+    # NOTE: Only run for REMI.
+    for vocab_size in (500, 1000, 1500, 2000, 3000):
+        results = calc_statistics(REMI(), 'results_bpe_var/', vocab_size)
+        print(*results)
+        results = calc_statistics(REMI(), 'results_max_bpe_var/', vocab_size)
         print(*results)
