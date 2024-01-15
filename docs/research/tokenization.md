@@ -2,14 +2,37 @@
 
 ...
 
-## Dostępne tokenizatory
+## Cel
 
 ...
+
+## Dostępne tokenizatory
+
+W ramach [MidiTok][miditok] dostępne jest 9 tokenizatorów o wspólnym interfejsie.
+
+* [REMI][remi][^huang2020] (2020) - ...
+* [REMIPlus][remiplus][^rutte2022] (2022) - ...
+* [MIDI-Like][midilike][^oore2018] (2018) - ...
+* [TSD][tsd] - ...
+* [Structured][structured][^huang2020] - ...
+* [CPWord][cpword][^hsiao2021] (2021) - ...
+* [Octuple][octuple][^zeng2021] (2021) - ...
+* [MuMIDI][mumidi][^ren2020] (2020) - ...
+* [MMM][mmm][^ens2020] (2020) - ...
+
+## [Byte Pair Encoding][bpe]
+
+[MidiTok][miditok] udostępnia gotową implementację Byte Pair Encoding.
+Byte Pair Encoding to technika kompresji sekwencji tokenów (głównie wykorzystywana w NLP) polegająca na wykrywaniu często występujących par tokenów
+i zastępowaniu ich nowymi pojedynczymi tokenami[^sennrich2016].
+BPE pozwala na znaczną redukcję długości sekwencji wejściowych, a więc przyspieszenie inferencji modeli.
+W pracy badającej zastosowanie BPE w generowaniu muzyki symbolicznej[^fradet2023], wyniki z modelów generacyjnych wykorzystujących tokenizatory z BPE
+okazały się bardziej atrakcyjne dla ankietowanych słuchaczy w porównaniu z modelami korzystającymi z innych technik, takich jak *embedding pooling*.
 
 :::{admonition} Uwaga
 :class: danger
 :name: tip-bpe
-[Byte Pair Encoding][bpe] nie jest dostępne dla niektórych tokenizatorów: [CPWord][cpword], [Octuple][octuple], [MuMIDI][mumidi].
+[Byte Pair Encoding][bpe] nie jest dostępne dla niektórych tokenizatorów: [CPWord][cpword], [Octuple][octuple] i [MuMIDI][mumidi], ponieważ wykorzystują *embedding pooling*.
 :::
 
 ## Metodyka
@@ -18,8 +41,8 @@ Tokenizacje przeprowadzono dla każdego tokenizatora w czterech konfiguracjach, 
 
 * Domyślna - z [domyślnymi parametrami tokenizatorów](https://miditok.readthedocs.io/en/latest/bases.html#miditok.TokenizerConfig) w [MidiTok][miditok],
 * Maksymalna - z dodatkowymi parametrami (poniżej) pozwalającymi na uzyskanie większej liczby typów tokenów,
-* Domyślna z [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla [BPE][bpe] ustawiono na 500,
-* Maksymalna z [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla [BPE][bpe] ustawiono na 1500.
+* Domyślna + [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla BPE ustawiono na 500,
+* Maksymalna + [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla BPE ustawiono na 1500.
 
 ```py
 config = miditok.TokenizerConfig(
@@ -126,6 +149,18 @@ Należy uruchomić je w następującej kolejności:
 ## Analiza wyników
 
 ...
+
+## Bibliografia
+
+[^huang2020]: ["Pop Music Transformer: Beat-Based Modeling and Generation of Expressive Pop Piano Compositions", Yu-Siang Huang & Yi-Hsuan Yang, 2020](https://doi.org/10.1145/3394171.3413671)
+[^rutte2022]: ["FIGARO: Generating Symbolic Music with Fine-Grained Artistic Control", Dimitri von Rütte et. al., 2022](https://doi.org/10.48550/arXiv.2201.10936)
+[^oore2018]: ["This Time with Feeling: Learning Expressive Musical Performance", Sageev Oore et.al., 2018](https://doi.org/10.48550/arXiv.1808.03715)
+[^hsiao2021]: ["Compound Word Transformer: Learning to Compose Full-Song Music over Dynamic Directed Hypergraphs", Wen-Yi Hsiao et. al., 2021](https://doi.org/10.1609/aaai.v35i1.16091)
+[^zeng2021]: ["MusicBERT: Symbolic Music Understanding with Large-Scale Pre-Training", Mingliang Zeng et. al., 2021](https://doi.org/10.48550/arXiv.2106.05630)
+[^ren2020]: ["PopMAG: Pop Music Accompaniment Generation", Yi Ren et. al., 2020](https://doi.org/10.48550/arXiv.2008.07703)
+[^ens2020]: ["MMM : Exploring Conditional Multi-Track Music Generation with the Transformer", Jeff Ens & Philippe Pasquier, 2020](https://doi.org/10.48550/arXiv.2008.06048)
+[^sennrich2016]: ["Neural Machine Translation of Rare Words with Subword Units", Rico Sennrich, Barry Haddow & Alexandra Birch, 2016](https://doi.org/10.48550/arXiv.1508.07909)
+[^fradet2023]: ["Byte Pair Encoding for Symbolic Music", Nathan Fradet et.al., 2023](https://doi.org/10.48550/arXiv.2301.11975)
 
 [miditok]: https://miditok.readthedocs.io/en/latest/
 [muspy]: https://salu133445.github.io/muspy/
