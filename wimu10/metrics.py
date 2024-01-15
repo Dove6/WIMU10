@@ -11,6 +11,7 @@ def dummy_metric():
     """Dummy metric."""
     pass
 
+
 def score_matching_notes(a: Notes, b: Notes) -> int:
     score = 0
     for c in a:
@@ -18,8 +19,10 @@ def score_matching_notes(a: Notes, b: Notes) -> int:
             score += 1
     return score
 
+
 def score_perfect_match(a: Notes, b: Notes) -> int:
     return 1 if a == b else 0
+
 
 def self_similarity(
     track: mp.Track,

@@ -1,5 +1,3 @@
-from collections.abc import Callable, Collection
-from typing import Optional
 import muspy as mp
 import numpy as np
 
@@ -10,8 +8,8 @@ def chords_histogram(
     error_frame: int = 75
 ) -> dict[str, int] or None:
     """
-    Calculates and returns the histogram of chords in the track. 
-    Returns the values in MIDI note format or in piano key notation. 
+    Calculates and returns the histogram of chords in the track.
+    Returns the values in MIDI note format or in piano key notation.
     Returns 'None' in case of 'readable_output' value.
 
     track: Track to retrive the chord histogram from.
@@ -64,7 +62,7 @@ def chords_transition_matrix(
         str_chords =  _piano_chords(chords)
     else:
         return None
-    
+
     chords_dict = _get_unique_chords(str_chords)
 
     # Unique chords count
@@ -147,7 +145,7 @@ def _get_unique_chords(chords_list:list[str]):
             unique_chords[chord] = chord_id
             chord_id += 1
     return unique_chords
-    
+
 def _midi_chords(chords_list:list[list[int]]) -> list[str]:
     return [ '/'.join(map(str,chord)) for chord in chords_list]
 
