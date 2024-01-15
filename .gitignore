@@ -161,6 +161,4 @@ cython_debug/
 
 .vscode
 .ruff_cache
-data/**
-!data/*.py
 **/tmp
