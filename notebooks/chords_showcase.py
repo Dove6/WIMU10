@@ -34,20 +34,21 @@ def visualize_chord_histogram(chords_hist:dict):
     plt.title("Chord histogram")
     plt.show()
 
-# Prepare music instance
-dataset = 'musicnet'
-download_muspy_midi(dataset)
-path = Path(DATA_RAW_PATH + dataset + '/_converted/148.json')
-music = mp.load_json(path)
-track = music.tracks[0]
-
-# Visualizing pianoroll
-visualize_pianoroll(music)
-
-# Transition matrix testing
-ch_dict, t_matrix = chords_transition_matrix(track, "piano")
-visualize_chord_transition(ch_dict, t_matrix)
-
-# Histogram testing
-chords = chords_histogram(track, "piano")
-visualize_chord_histogram(chords)
+if __name__ == "__main__":
+    # Prepare music instance
+    dataset = 'musicnet'
+    download_muspy_midi(dataset)
+    path = Path(DATA_RAW_PATH + dataset + '/_converted/148.json')
+    music = mp.load_json(path)
+    track = music.tracks[0]
+    
+    # Visualizing pianoroll
+    visualize_pianoroll(music)
+    
+    # Transition matrix testing
+    ch_dict, t_matrix = chords_transition_matrix(track, "piano")
+    visualize_chord_transition(ch_dict, t_matrix)
+    
+    # Histogram testing
+    chords = chords_histogram(track, "piano")
+    visualize_chord_histogram(chords)
