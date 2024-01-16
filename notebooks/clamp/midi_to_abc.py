@@ -8,6 +8,10 @@ from datetime import timedelta
 
 
 class Counter:
+    """
+    Helper class to track progress amongst many threads.
+    """
+
     def __init__(self, total: int):
         self.total = total
         self.complete = 0
@@ -29,6 +33,10 @@ class Counter:
 
 
 def batch_midi_to_abc(srcs: List[Path], dsts: List[Path], max_workers: Optional[int] = None):
+    """
+    Convert all MIDI source files `srcs` to ABC destination files `dsts`.
+    Lengths of `srcs` and `dsts` must match.
+    """
     assert len(srcs) == len(dsts)
 
     counter = Counter(len(srcs))
@@ -47,6 +55,10 @@ def batch_midi_to_abc(srcs: List[Path], dsts: List[Path], max_workers: Optional[
 
 
 def try_midi_to_abc(src: Path, dst: Path, counter: Counter):
+    """
+    Fail-safe MIDI to ABC.
+    For use in batch.
+    """
     try:
         dst.unlink(missing_ok=True)
         dst.parent.mkdir(parents=True, exist_ok=True)
@@ -58,11 +70,18 @@ def try_midi_to_abc(src: Path, dst: Path, counter: Counter):
 
 
 def midi_to_abc(src: Path, dst: Path):
+    """
+    Conversion of one MIDI file to one ABC file.
+    """
     dst.touch(exist_ok=False)
     subprocess.Popen(f'notebooks/clamp/midi2abc.exe -s -o "{dst}" "{src}"', stdout=subprocess.PIPE)
 
 
 def main(input_dir: Path, output_dir: Path, max_workers: Optional[int] = None):
+    """
+    Convert all MIDI files from `input_dir` to appropriate ABC files in `output_dir`.
+    `max_workers` allows changing the max of threads used.
+    """
     srcs = list(input_dir.glob('**/*.midi'))
     dsts = [output_dir.joinpath(*src.parts[len(input_dir.parts) : -1]).joinpath(f'{src.stem}.abc') for src in srcs]
     batch_midi_to_abc(srcs, dsts, max_workers)
