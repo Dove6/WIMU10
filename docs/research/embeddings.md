@@ -43,7 +43,10 @@ Formaty ABC i embeddingi zostaną zapisane równolegle ze zbiorem maestro w fold
 
 W ramach eksperymentu, każdy utwór ze zbioru Maestro został przetworzony do formatu ABC, a następnie przekazany do modelu, którego wyniki w postaci embeddingów zostały zapisane w plikach o formacie JSON.
 
-## Analiza wariancji
+## Wariancja wewnątrz-grupowa
+
+Obliczona została wariancja wartości embeddingów dla każdej grupy (wszystkie utwory, per autor).
+W celu ograniczenia informacji przedstawiamy tylko skrajne wartości wariancji każdej grupy.
 
 Wysoka wariancja embeddingów świadczy o dużym zróżnicowaniu badanego zbioru utworów.
 Oczekujemy, że utwory bardziej do siebie zbliżone, np. pochodzące od tego samego autora, będą miały niższą wariancję.
@@ -87,6 +90,19 @@ Warto zauważyć, że minimalna wariancja maleje znacznie szybciej od maksymalne
 
 Grupowanie muzyki klasycznej po jej twórcach nie jest najlepszą metodą.
 Lepszy kontrast będzie można zobaczyć, kiedy porównywane grupy będą podzielone według metryk, np. tempo, gatunek, charakter (smutny czy wesoły).
+
+## Odległości między centroidami grup
+
+Obliczone zostały centroidy dla każdej grupy (wszystkie utwory, i per autor).
+
+Odległości pomiędzy wartościami średnimi embeddingów grup pozwala określić na ile podobne są do siebie te grupy.
+Poniższe wykresy przedstawiają zestawienie ze sobą centroidy grup autorów, a następnie centroidy grup autorów z centroidem wszystkich utworów.
+
+![stop doing deep learning, perceptrons were only ever meant to be fully connected](../../images/clamp_embedding_distances.png)
+
+Na wykresie pierwszym widać, że autorzy o dużej twórczości mają bardzo zbliżone do siebie embeddingi, co świadczy o różnorodności ich utworów. Pojedyncze utwory naturalnie są od siebie dramatycznie różne. Najciekawsze porównanie uzyskujemy dla grup od 2 do 7 utworów, gdzie widać charakterystyczne linie pionowe i poziome (są one symetryczne względem przekątnej). Świadczą one o konsekwentnym (powtarzanym w kilku utworach) odstępstwie od norm.
+
+Na wykresie drugim łatwo zauważyć, że autorzy z dużą twórczością znajdują się bliżej środka łączonej grupy. Jest to spowodowane tym, że mają w nią największy wkład. Największe odstępstwa występuje dla pojedynczych utworów, natomiast nie mają one dużego wkładu w łączoną średnią.
 
 # Dalsze eksperymenty
 
