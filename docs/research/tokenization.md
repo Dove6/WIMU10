@@ -1,8 +1,9 @@
 # Tokenizacja
 
-...
+Tokenizacja to proces przetwarzania utworów muzycznych w formatach muzyki symbolicznej na sekwencję
+tokenów wejściowych do modeli sztucznej inteligencji.
 
-## Cel
+## Cel eksperymentu
 
 * Zbadanie różnic pomiędzy tokenizatorami MIDI udostępnionymi w bibliotece [MidiTok][miditok] poprzez
 porównanie długości sekwencji wyjściowych oraz wydajności (potrzebnego czasu pracy),
@@ -15,15 +16,19 @@ porównanie długości sekwencji wyjściowych oraz wydajności (potrzebnego czas
 
 W ramach [MidiTok][miditok] dostępne jest 9 tokenizatorów o wspólnym interfejsie.
 
-* [REMI][remi][^huang2020] (2020) - ...
-* [REMIPlus][remiplus][^rutte2022] (2022) - ...
-* [MIDI-Like][midilike][^oore2018] (2018) - ...
-* [TSD][tsd] - ...
-* [Structured][structured][^huang2020] - ...
-* [CPWord][cpword][^hsiao2021] (2021) - ...
-* [Octuple][octuple][^zeng2021] (2021) - ...
-* [MuMIDI][mumidi][^ren2020] (2020) - ...
-* [MMM][mmm][^ens2020] (2020) - ...
+* [REMI][remi][^huang2020] (2020) - jednościeżkowy tokenizator,
+* [REMIPlus][remiplus][^rutte2022] (2022) - REMI wspierający wiele ścieżek i zmienne metrum,
+* [MIDI-Like][midilike][^oore2018] (2018) - prosty tokenizer bezpośrednio zamieniający wydarzenia
+MIDI na tokeny,
+* [TSD][tsd] - podobnie jak MIDI-Like, ale używa tokenów *Duration* zamiast *NoteOn* i *NoteOff*,
+* [Structured][structured][^huang2020] - podobnie jak TSD, ale kolejność tokenów jest ustalona
+(zawsze *Pitch* -> *Velocity* -> *Duration* -> *TimeShift*),
+* [CPWord][cpword][^hsiao2021] (2021) - podobnie jak REMI, ale wykorzystane jest *embedding pooling*,
+* [Octuple][octuple][^zeng2021] (2021) - wykorzystanie *embedding pooling*, aby każdy embedding
+zawierał wszystkie informacje o jednej nucie, wspiera wiele ścieżek,
+* [MuMIDI][mumidi][^ren2020] (2020) - kolejny tokenizator wykorzystujący *embedding pooling* do
+tokenizacji wielu ścieżek,
+* [MMM][mmm][^ens2020] (2020) - wielościeżkowy tokenizator,
 
 ### [Byte Pair Encoding][bpe]
 
@@ -39,7 +44,7 @@ ankietowanych słuchaczy w porównaniu z modelami korzystającymi z innych techn
 *embedding pooling*.
 
 :::{admonition} Uwaga
-:class: danger
+:class: error
 :name: tip-bpe
 [Byte Pair Encoding][bpe] nie jest dostępne dla niektórych tokenizatorów: [CPWord][cpword],
 [Octuple][octuple] i [MuMIDI][mumidi], ponieważ wykorzystują *embedding pooling*.
@@ -86,10 +91,10 @@ Wszystkie procesy tokenizacji zostały przeprowadzone na tej samej maszynie.
 * Implementacja interpretera Python: CPython
 * Wersja biblioteki [`MidiTok`][miditok]: 2.1.8
 * Wersja biblioteki [`MusPy`][muspy]: 0.5.0
-* Wersja zbioru danych [MAESTRO][maestro]: 2.0.0
+* Wersja zbioru danych [MAESTRO][maestro]: 3.0.0
 
 :::{admonition} Informacja
-:class: tip
+:class: seealso
 Pełną listę zależności można znaleźć w pliku [`requirements.txt`](https://github.com/Dove6/WIMU10/tree/main/requirements.txt)
 w repozytorium projektu.
 :::
@@ -119,6 +124,13 @@ Należy uruchomić je w następującej kolejności:
 |[MuMIDI][mumidi]         |              18:47 |      61069161 |              47859.84 |
 |[MMM][mmm]               |              17:44 |      25843073 |              20253.19 |
 
+|Miara statystyczna                                 |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|
+|---------------------------------------------------|--------------------|---------------|-----------------------|
+|Średnia arytmetyczna                               |              18:57 |      27244139 |              21351.20 |
+|Średnia obcięta[{sup}`?`](#tip-cut)                |              18:47 |      25298357 |              19826.30 |
+|Odchylenie standardowe                             |              01:02 |      15174375 |              11892.14 |
+|Odchylenie standardowe obcięte[{sup}`?`](#tip-cut) |              00:27 |       6623628 |               5190.93 |
+
 ### Maksymalna tokenizacja
 
 |Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
@@ -132,6 +144,13 @@ Należy uruchomić je w następującej kolejności:
 |[Octuple][octuple]       |              20:13 |       7039587 |               5516.92 |   +0% |
 |[MuMIDI][mumidi]         |              21:49 |      76830938 |              60212.33 |+25.8% |
 |[MMM][mmm]               |              20:18 |      25870241 |              20274.48 |  +<1% |
+
+|Miara statystyczna                                 |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
+|---------------------------------------------------|--------------------|---------------|-----------------------|-------|
+|Średnia arytmetyczna                               |              20:59 |      29558037 |              23164.61 | +8.5% |
+|Średnia obcięta[{sup}`?`](#tip-cut)                |              20:43 |      26021687 |              20393.17 | +2.9% |
+|Odchylenie standardowe                             |              01:59 |      19763858 |              15488.92 |+30.2% |
+|Odchylenie standardowe obcięte[{sup}`?`](#tip-cut) |              00:37 |       7018222 |               5500.18 | +6.0% |
 
 ### Domyślna tokenizacja, [Byte Pair Encoding][bpe]
 
@@ -147,6 +166,13 @@ Należy uruchomić je w następującej kolejności:
 |[MuMIDI][mumidi]         |                N/A |           N/A |                   N/A |   N/A |
 |[MMM][mmm]               |              03:13 |      14818454 |              11613.21 |-42.7% |
 
+|Miara statystyczna                                 |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana2) |
+|---------------------------------------------------|--------------------|---------------|-----------------------|-------|
+|Średnia arytmetyczna                               |              04:05 |      15958979 |             12507.04  |-42.2% |
+|Średnia obcięta[{sup}`?`](#tip-cut)                |              03:36 |      15630456 |             12249.58  |-41.7% |
+|Odchylenie standardowe                             |              01:36 |       1526808 |              1196.56  |-47.4% |
+|Odchylenie standardowe obcięte[{sup}`?`](#tip-cut) |              00:35 |       1002507 |               785.66  |-22.0% |
+
 ### Maksymalna tokenizacja, [Byte Pair Encoding][bpe]
 
 |Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
@@ -160,6 +186,13 @@ Należy uruchomić je w następującej kolejności:
 |[Octuple][octuple]       |                N/A |           N/A |                   N/A |   N/A |
 |[MuMIDI][mumidi]         |                N/A |           N/A |                   N/A |   N/A |
 |[MMM][mmm]               |              03:10 |      14883832 |              11664.45 |-42.4% |
+
+|Miara statystyczna                                 |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana2) |
+|---------------------------------------------------|--------------------|---------------|-----------------------|-------|
+|Średnia arytmetyczna                               |              04:31 |      16818443 |              13180.60 |-39.0% |
+|Średnia obcięta[{sup}`?`](#tip-cut)                |              03:54 |      16593217 |              13004.09 |-38.1% |
+|Odchylenie standardowe                             |              02:14 |       2037147 |               1596.51 |-29.8% |
+|Odchylenie standardowe obcięte[{sup}`?`](#tip-cut) |              00:28 |       1695598 |               1328.83 |+31,9% |
 
 ### Domyślna tokenizacja, [Byte Pair Encoding][bpe], różny rozmiar słowozbioru
 
@@ -181,14 +214,33 @@ Należy uruchomić je w następującej kolejności:
 |              2000 |[REMI][remi]            |              04:43 |      15473773 |              12126.78 |-39.6% |
 |              3000 |[REMI][remi]            |              05:45 |      14317688 |              11220.76 |-44.1% |
 
-:::{admonition} Informacja
-:class: tip
+:::{admonition} Uwaga
+:class: attention
 :name: tip-zmiana
-Kolumna `Zmiana` podaje procentową zmianę sumarycznej liczby tokenów względem domyślnej tokenizacji
+Dla danych per tokenizator, kolumna `Zmiana` podaje procentową zmianę sumarycznej liczby tokenów względem domyślnej tokenizacji
 bez BPE.
 :::
 
+:::{admonition} Uwaga
+:class: attention
+:name: tip-zmiana2
+Dla miar statystycznych, kolumna `Zmiana` podaje procentową zmianę sumarycznej liczby tokenów względem domyślnej tokenizacji
+bez BPE biorąc pod uwagę tylko te tokenizatory, które wspierają BPE.
+:::
+
+:::{admonition} Informacja
+:class: tip
+:name: tip-cut
+Średnia obcięta i odchylenie standardowe obcięte to odpowiednie miary policzone dla zbioru po
+odrzuceniu najwyższej i najniższej wartości.
+:::
+
 ## Analiza wyników
+
+Czas pracy większości tokenizatorów dla domyślnej i maksymalnej konfiguracji był podobny i nie odstawał
+od średniej arytmetycznej (18:57 dla konfiguracji domyślnej, 20:59 dla maksymalnej) o więcej, niż
+wartość odchylenia standardowego (odpowiednio 01:02 i 01:59). W obu przypadkach najdłużej pracował
+tokenizator [CPWord][cpword], o ponad dwa razy wartość odchylenia standardowego powyżej średniej.
 
 ...
 
