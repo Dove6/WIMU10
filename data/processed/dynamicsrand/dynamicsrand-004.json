@@ -1,0 +1,5 @@
+{
+    "tool": "dynamics_randomizer.py",
+    "settings": "--lower-bound 127 --upper-bound 1 ./data/raw/musicnet/musicnet_midis/Bach/2186_vs6_1.mid",
+    "description": "only extreme velocity values (1 and 127)",
+}

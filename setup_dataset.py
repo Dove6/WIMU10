@@ -14,6 +14,11 @@ DATASETS = {
 }
 
 
+def change_data_path(new_path: str):
+    global DATA_RAW_PATH
+    DATA_RAW_PATH = new_path
+
+
 def download_muspy_midi(dataset_name: str) -> mp.Dataset:
     """Download a MusPy MIDI dataset specified by name.
     Available datasets:

@@ -3,4 +3,6 @@
 !.gitignore
 !generated/
 !generated/**
+!processed/
+!processed/**
 !*.py
