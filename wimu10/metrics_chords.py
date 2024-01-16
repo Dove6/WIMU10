@@ -16,7 +16,7 @@ def chords_histogram(
     readable_output: Whether to output the given chords
     in MIDI number format or piano key notation.
     error_frame: How much time can pass between single notes for them to still me in the same chord.
-    Due to the fact that notes can be inputed with delays(because of the playing style, human or machine error).
+    Due to the fact that notes can be inputed with delays(because of the playing style, a human or machine error).
     This value is given to prevent a single bigger chord, where separte notes are played with slight delays and have different timestamps.
     At the time of programming and testing the initial value '75' was set and tested on the 'musicnet' dataset.
     """

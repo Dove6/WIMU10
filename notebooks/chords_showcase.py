@@ -38,7 +38,7 @@ if __name__ == "__main__":
     # Prepare music instance
     dataset = 'musicnet'
     download_muspy_midi(dataset)
-    path = Path(DATA_RAW_PATH + dataset + '/_converted/148.json')
+    path = Path(DATA_RAW_PATH + dataset + '/_converted/151.json')
     music = mp.load_json(path)
     track = music.tracks[0]
     
