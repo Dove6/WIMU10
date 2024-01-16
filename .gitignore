@@ -164,3 +164,6 @@ cython_debug/
 data/**
 !data/*.py
 **/tmp
+
+# ML models
+**/sander-wood
