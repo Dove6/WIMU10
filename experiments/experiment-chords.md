@@ -71,20 +71,20 @@ W przypadku zestawu GiantMusicTransformer pojawiło sie kilka bardziej nadający
 
 Utwór `gmt-009.mid` charakteryzuje brakiem struktury i spoistości. Akordy się odgrywane w sposób całkowicie losowy. Jest to w dużej mierze zauważalne również w wynikach metryk. W macierzy przejść jest zauważalna jedna przękątna linia z minimalną ilością 'przejść' dziejących się poza nią. Na histogramie natomiast widać rozkład płaski, gdzie znaczna większość akordów pojawia się tylko raz. Przykładami danych o podobnej charakterystyce dźwięku oraz podobnych wynikach metryk były: `gmt-002.mid`, `gmt-010.mid` oraz `gmt-011.mid`.
 ![a](../images/chords/exp_analysis_gmt_random.png)
-&nbsp;*<span id="rys-5">Rys. 5</span>. Macierz przejść i histogram akordów dla pliku 'gmt-009.mid'*
+&nbsp;*<span id="rys-4">Rys. 4</span>. Macierz przejść i histogram akordów dla pliku 'gmt-009.mid'*
 
 W przypadku `gmt-000.mid` można klarowanie słyszeć zdominowanie utworu przez jeden akord, gdzie pozostałych praktycznie nie słychać. Wynikowa macierz przejść utraciła przekątną linię 'przejść' w zamian za znacznie większą różnorodność. Na histogramie natomiast widać rozkład jednomodalny, gdzie jeden akord pojawia się o wiele częściej niż pozostałe (prawie o rząd wielkośći). Utworami posiadającymi podobny charakter oraz identyczne wyniki metryk były: `gmt-003.mid` oraz `gmt-001.mid`.
 ![a](../images/chords/exp_analysis_gmt_outnumbers.png)
-&nbsp;*<span id="rys-6">Rys. 6</span>. Macierz przejść i histogram akordów dla pliku 'gmt-000.mid'*
+&nbsp;*<span id="rys-5">Rys. 5</span>. Macierz przejść i histogram akordów dla pliku 'gmt-000.mid'*
 
 Bardziej ekstremalnym przypadkiem utworów zdominowanych przez jeden akord są `gmt-004.mid`, `gmt-005.mid` oraz `gmt-006.mid`, gdzie grany jest praktycznie tylko jeden akord.  
 ![a](../images/chords/exp_analysis_gmt_one.png)
-&nbsp;*<span id="rys-7">Rys. 7</span>. Macierz przejść i histogram akordów dla pliku 'gmt-004.mid'*
+&nbsp;*<span id="rys-6">Rys. 6</span>. Macierz przejść i histogram akordów dla pliku 'gmt-004.mid'*
 
 
 Najlepiej brzmiącym wygenerowanym utworem był `gmt-008.mid`(dla wartości 'temperature: 1.0'). Z wszystkich danych wygenerowanych przy pomocy 'GiantMusicTransformer', ten charakteryzował się największa spoistością. Najbardziej brzmiał jak rzeczywiste utwory. Struktura wyników dla tego utworu jest również bardzo zbliżona do utworów ze zbioru MusicNet. W macierzy przejść duże skupienie 'przejść' jest widoczne na przękatnej, z lekkimi wariacjami odbywającymi się co kilka akordów. W przypadku histogramu można sugerować istnienie rozkładu wielomodalnego. Żaden z akordów pojedyńczo nie dominuje utworu oraz nie istnieje tak duża losowość brzmienia jak w przypadku utworów z rozkładem płaskim. 
 ![a](../images/chords/exp_analysis_gmt_best.png)
-&nbsp;*<span id="rys-4">Rys. 4</span>. Macierz przejść i histogram akordów dla pliku 'gmt-008.mid'*
+&nbsp;*<span id="rys-7">Rys. 7</span>. Macierz przejść i histogram akordów dla pliku 'gmt-008.mid'*
 
 
 
