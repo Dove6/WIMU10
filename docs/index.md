@@ -9,6 +9,7 @@ Design Proposal<DESIGN_PROPOSAL.md>
 :hidden:
 :caption: Dokumentacja API
 Metrics<api/metrics.md>
+Utilities<api/utils.md>
 ```
 
 ```{toctree}
