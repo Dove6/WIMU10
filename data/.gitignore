@@ -6,3 +6,4 @@
 !processed/
 !processed/**
 !*.py
+!self_similarity_score.json
