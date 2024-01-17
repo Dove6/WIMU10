@@ -1,4 +1,4 @@
-# Metrics
+# Metryki
 
 ```{eval-rst}
 .. automodule:: wimu10.metrics
