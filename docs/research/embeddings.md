@@ -1,60 +1,68 @@
-# Cel
+# Embeddingi CLaMP
 
-Celem tego eksperymentu jest weryfikacja, czy embeddingi utworów, wytworzone przez model uczenia maszynowego, mogą służyć za metryki.
+## Cel
 
-# Wykorzystane zasoby
+Celem tego eksperymentu jest weryfikacja, czy embeddingi utworów, wytworzone przez model uczenia
+maszynowego, mogą służyć za metryki.
 
-Zbiór danych Maestro w wersji 3.
-TODO: gdzieś masz linka
+## Wykorzystane zasoby
 
-
-Model [CLaMP](https://github.com/microsoft/muzic/tree/main/clamp)
+* Zbiór [MAESTRO][maestro][^hawthorne2018] w wersji 3.0.0,
+* Model [CLaMP][clamp][^wu2023] w wersji `sander-wood/clamp-small-512`.
 Silnie zmodyfikowany interfejs użytkownika:
-- zamiast formatu wejściowego MusicXML, używamy ABC (był on używany wewnętrznie)
-- argumenty to wejściowy folder z plikami ABC i wyjściowy folder gdzie trafią pliki JSON
-- obsługiwanie wielu utworów na raz (batching)
-- zapisywanie embeddingów utworów do plików JSON
-- usunięcie fragmentu
-Model w wersji `sander-wood/clamp-small-512`
+  * Zamiast formatu wejściowego MusicXML, używamy ABC (był on używany wewnątrz modelu),
+  * Argumenty to wejściowy folder z plikami ABC i wyjściowy folder gdzie trafią pliki JSON,
+  * Obsługiwanie wielu utworów na raz (batching),
+  * Zapisywanie embeddingów utworów do plików JSON,
+  * Usunięcie fragmentu.
+* Narzędzie do bezpośredniej zamiany formatu MIDI na format ABC [midi2abc][midi2abc_].
+Zamiana MIDI do MusicXML poprzez [MusPy][muspy] nie działała, ponieważ utwory ze zbioru Maestro miały
+zbyt krótkie nuty i konwerter nie był sobie w stanie z tym poradzić. Nie wiemy też, czy format
+pośredni zachowywał wszystkie informacje.
+Alternatywny konwerter pozwalał obsłużyć krótkie nuty, posiadał też bogatą paletę opcji, które nie
+były nam potrzebne. Jest też kilkakrotnie szybszy, bo stworzony został dokładnie do tego typu operacji.
 
+## Uruchomienie
 
-Narzędzie do bezpośredniej zamiany formatu MIDI na format ABC [midi2abc](https://github.com/sshlien/abcmidi)
-Zamiana MIDI do MusicXML poprzez `muspy` nie działała, ponieważ utwory ze zbioru Maestro miał zbyt krótkie nuty i konwerter nie był sobie w stanie z tym poradzić.
-Nie wiemy też, czy format pośredni zachowywał wszystkie informacie.
-Alternatywny konwerter pozwalał obsłużyć krótkie nuty, posiadał też bogatą paletę opcji, które nie były nam potrzebne.
-Jest też kilkakrotnie szybszy, bo stworzony został dokładnie do tego typu operacji.
+Do tego eksperymentu wymagany jest Python w wersji 3.9.X, jest to narzucone przez kod użyty do modelu [CLaMP][clamp].
 
-# Uruchomienie
+Przetważanie zaczyna się od pobrania zbioru [MAESTRO][maestro]:
 
-Do tego eksperymentu wymagany jest Python w wersji 3.9.X, jest to narzucone przez kod użyty do modelu CLaMP.
-
-Przetważanie zaczyna się od pobrania zbioru maestro:
 ```sh
-py -m setup_database maestro
+py -m setup_dataset maestro
 ```
 
 Następnie należy go przekonwertować z formatu MIDI do ABC i przekazać do modelu:
+
 ```sh
 py -3.9 -m notebooks.clamp.statistics
 ```
 
-Formaty ABC i embeddingi zostaną zapisane równolegle ze zbiorem maestro w folderze `data`.
+Formaty ABC i embeddingi zostaną zapisane równolegle ze zbiorem [MAESTRO][maestro] w folderze `data`.
 
-# Wyniki
+## Wyniki
 
-W ramach eksperymentu, każdy utwór ze zbioru Maestro został przetworzony do formatu ABC, a następnie przekazany do modelu, którego wyniki w postaci embeddingów zostały zapisane w plikach o formacie JSON.
+W ramach eksperymentu każdy utwór ze zbioru Maestro został przetworzony do formatu ABC, a następnie
+przekazany do modelu, którego wyniki w postaci embeddingów zostały zapisane w plikach w formacie JSON.
 
-## Wariancja wewnątrz-grupowa
+### Wariancja wewnątrz-grupowa
 
 Obliczona została wariancja wartości embeddingów dla każdej grupy (wszystkie utwory, per autor).
 W celu ograniczenia informacji przedstawiamy tylko skrajne wartości wariancji każdej grupy.
 
 Wysoka wariancja embeddingów świadczy o dużym zróżnicowaniu badanego zbioru utworów.
-Oczekujemy, że utwory bardziej do siebie zbliżone, np. pochodzące od tego samego autora, będą miały niższą wariancję.
+Oczekujemy, że utwory bardziej do siebie zbliżone, np. pochodzące od tego samego autora, będą miały
+niższą wariancję.
 
-Ograniczamy się do twórców z conajmniej 5 utworami, bo wariancja dla jednego elementu naturalnie dąży do wartości zerowej.
-Przed analizą wyniki zostały poddane normalizacji warstwowej, co jest bliższe podobieństwu cosinusowemu (na którym model znajduje podobieństwa utworów i tekstów) niż nieznormalizowane wyniki.
-*Matematyka opisana w komentarzu tutaj: https://stackoverflow.com/questions/46409846/using-k-means-with-cosine-similarity-python*
+Ograniczamy się do twórców z conajmniej 5 utworami, bo wariancja dla jednego elementu naturalnie
+dąży do wartości zerowej. Przed analizą wyniki zostały poddane normalizacji warstwowej, co jest
+bliższe podobieństwu cosinusowemu (na którym model znajduje podobieństwa utworów i tekstów) niż
+nieznormalizowane wyniki.
+
+:::{admonition} Informacja
+:class: tip
+Matematyka opisana w komentarzu tutaj: [StackOverflow](https://stackoverflow.com/questions/46409846/using-k-means-with-cosine-similarity-python).
+:::
 
 |                  Group or author                   | Songs | Min variance | Max variance |
 |----------------------------------------------------|-------|--------------|--------------|
@@ -86,39 +94,51 @@ Przed analizą wyniki zostały poddane normalizacji warstwowej, co jest bliższe
 
 Wariancja całej grupy jest punktem odniesienia.
 Twórcy o dużej ilości utworów mają wariancję zbliżoną wariancji grupy, czasami znacznie wyższą.
-Dla twórców o mniejszej ilości utworów wariancja z reguły maleje, co sugeruje, że utwory te są do siebie bardziej podobne.
-Warto zauważyć, że minimalna wariancja maleje znacznie szybciej od maksymalnej, może być to spowodowane tym, że mniejsi twórcy mieli jedną, bardzo specyficzną cechę zawartą w swoich utworach.
+Dla twórców o mniejszej ilości utworów wariancja z reguły maleje, co sugeruje, że utwory te są do
+siebie bardziej podobne.
+Warto zauważyć, że minimalna wariancja maleje znacznie szybciej od maksymalnej, może to być
+spowodowane tym, że mniejsi twórcy mieli jedną, bardzo specyficzną cechę zawartą w swoich utworach.
 
 Grupowanie muzyki klasycznej po jej twórcach nie jest najlepszą metodą.
-Lepszy kontrast będzie można zobaczyć, kiedy porównywane grupy będą podzielone według metryk, np. tempo, gatunek, charakter (smutny czy wesoły).
+Lepszy kontrast będzie można zobaczyć, kiedy porównywane grupy będą podzielone według metryk, np.
+tempo, gatunek, charakter (smutny czy wesoły).
 
-## Odległości między centroidami grup
+### Odległości między centroidami grup
 
 Obliczone zostały centroidy dla każdej grupy (wszystkie utwory, i per autor).
 
-Odległości pomiędzy wartościami średnimi embeddingów grup pozwala określić na ile podobne są do siebie te grupy.
-Poniższe wykresy przedstawiają zestawienie ze sobą centroidy grup autorów, a następnie centroidy grup autorów z centroidem wszystkich utworów.
+Odległości pomiędzy wartościami średnimi embeddingów grup pozwalają określić na ile podobne są do
+siebie te grupy. Poniższe wykresy przedstawiają zestawienie ze sobą centroidy grup autorów, a
+następnie centroidy grup autorów z centroidem wszystkich utworów.
 
 ![stop doing deep learning, perceptrons were only ever meant to be fully connected](../../images/clamp_embedding_distances.png)
 
-Na wykresie pierwszym widać, że autorzy o dużej twórczości mają bardzo zbliżone do siebie embeddingi, co świadczy o różnorodności ich utworów. Pojedyncze utwory naturalnie są od siebie dramatycznie różne. Najciekawsze porównanie uzyskujemy dla grup od 2 do 7 utworów, gdzie widać charakterystyczne linie pionowe i poziome (są one symetryczne względem przekątnej). Świadczą one o konsekwentnym (powtarzanym w kilku utworach) odstępstwie od norm.
+Na wykresie pierwszym widać, że autorzy o dużej twórczości mają bardzo zbliżone do siebie
+embeddingi, co świadczy o różnorodności ich utworów. Pojedyncze utwory naturalnie są od
+siebie dramatycznie różne. Najciekawsze porównanie uzyskujemy dla grup od 2 do 7 utworów, gdzie
+widać charakterystyczne linie pionowe i poziome (są one symetryczne względem przekątnej). Świadczą
+one o konsekwentnym (powtarzanym w kilku utworach) odstępstwie od norm.
 
-Na wykresie drugim łatwo zauważyć, że autorzy z dużą twórczością znajdują się bliżej środka łączonej grupy. Jest to spowodowane tym, że mają w nią największy wkład. Największe odstępstwa występuje dla pojedynczych utworów, natomiast nie mają one dużego wkładu w łączoną średnią.
+Na wykresie drugim łatwo zauważyć, że autorzy z dużą twórczością znajdują się bliżej środka łączonej
+grupy. Jest to spowodowane tym, że mają w nią największy wkład. Największe odstępstwa występuje dla
+pojedynczych utworów, natomiast nie mają one dużego wkładu w łączoną średnią.
 
-# Dalsze eksperymenty
+## Dalsze eksperymenty
 
 Analiza korelacji z istniejącymi metrykiami.
 Kosztowna czasowo, najlepiej dobrać specjalny zbiór do tych celów.
 Alanogicznie trzeba też wybrać zbiór metryk.
-Wystąpienie korelacji będzie oznaczało, że wybrane wartości embeddingów, odpowiadają pewnym metryką.
+Wystąpienie korelacji będzie oznaczało, że wybrane wartości embeddingów, odpowiadają pewnym metrykom.
 
 Analiza pomiędzy utworami różnych kategorii.
 Temat w sumie oklepany, na tym operają się klasyfikatory.
 
-# Bibliografia
+## Bibliografia
 
-[^CLaMP]: ["CLaMP: Contrastive Language-Music Pre-training for Cross-Modal Symbolic Music Information Retrieval", Shangda Wu & Dingyao Yu & Xu Tan, 2023](https://arxiv.org/abs/2304.11029)
+[^wu2023]: ["CLaMP: Contrastive Language-Music Pre-training for Cross-Modal Symbolic Music Information Retrieval", Shangda Wu & Dingyao Yu & Xu Tan, 2023](https://arxiv.org/abs/2304.11029)
+[^hawthorne2018]: ["Enabling Factorized Piano Music Modeling and Generation with the MAESTRO Dataset", Curtis Hawthorne et.al., 2019](https://openreview.net/forum?id=r1lYRjC9F7)
 
-Ig można ten midi2abc tutaj?
-majestro?
-🍅
+[clamp]: https://github.com/microsoft/muzic/tree/main/clamp
+[maestro]: https://magenta.tensorflow.org/datasets/maestro
+[muspy]: https://salu133445.github.io/muspy/
+[midi2abc_]: https://github.com/sshlien/abcmidi

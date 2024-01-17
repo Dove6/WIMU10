@@ -13,6 +13,7 @@ Metrics<api/metrics.md>
 ```{toctree}
 :hidden:
 :caption: Eksperymenty
+Embeddingi CLaMP<research/embeddings.md>
 Tokenizacja<research/tokenization.md>
 ```
 
