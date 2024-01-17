@@ -8,7 +8,8 @@ tokenów wejściowych do modeli sztucznej inteligencji.
 * Zbadanie różnic pomiędzy tokenizatorami MIDI udostępnionymi w bibliotece [MidiTok][miditok] poprzez
 porównanie długości sekwencji wyjściowych oraz wydajności (potrzebnego czasu pracy),
 * Zbadanie wpływu metod tokenizacji na wydajność [Byte Pair Encoding][bpe],
-* Porównanie zalet i wad BPE na praktycznym przykładzie.
+* Porównanie zalet i wad BPE na praktycznym przykładzie,
+* Zbadanie wpływu rozmiaru słowozbioru na wydajność [Byte Pair Encoding][bpe].
 
 ## Omówienie
 
@@ -17,7 +18,7 @@ porównanie długości sekwencji wyjściowych oraz wydajności (potrzebnego czas
 W ramach [MidiTok][miditok] dostępne jest 9 tokenizatorów o wspólnym interfejsie.
 
 * [REMI][remi][^huang2020] (2020) - jednościeżkowy tokenizator,
-* [REMIPlus][remiplus][^rutte2022] (2022) - REMI wspierający wiele ścieżek i zmienne metrum,
+* [REMI+][remiplus][^rutte2022] (2022) - REMI wspierający wiele ścieżek i zmienne metrum,
 * [MIDI-Like][midilike][^oore2018] (2018) - prosty tokenizer bezpośrednio zamieniający wydarzenia
 MIDI na tokeny,
 * [TSD][tsd] - podobnie jak MIDI-Like, ale używa tokenów *Duration* zamiast *NoteOn* i *NoteOff*,
@@ -55,8 +56,10 @@ ankietowanych słuchaczy w porównaniu z modelami korzystającymi z innych techn
 Tokenizacje przeprowadzono na zbiorze danych [MAESTRO][maestro][^hawthorne2018] dla każdego tokenizatora w czterech
 konfiguracjach, jeżeli to było możliwe[{sup}`*`](#tip-bpe):
 
-* Domyślna - z [domyślnymi parametrami tokenizatorów](https://miditok.readthedocs.io/en/latest/bases.html#miditok.TokenizerConfig) w [MidiTok][miditok],
-* Maksymalna - z dodatkowymi parametrami (poniżej) pozwalającymi na uzyskanie większej liczby typów tokenów,
+* Domyślna - z [domyślnymi parametrami tokenizatorów](https://miditok.readthedocs.io/en/latest/bases.html#miditok.TokenizerConfig)
+w [MidiTok][miditok],
+* Maksymalna - z dodatkowymi parametrami (poniżej) pozwalającymi na uzyskanie większej liczby typów
+tokenów,
 * Domyślna + [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla BPE ustawiono na 500,
 * Maksymalna + [Byte Pair Encoding][bpe]. Parametr [`vocab_size`][vcb_size] dla BPE ustawiono na 1500.
 
@@ -115,7 +118,7 @@ Należy uruchomić je w następującej kolejności:
 |Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|
 |-------------------------|--------------------|---------------|-----------------------|
 |[REMI][remi]             |              18:40 |      25609001 |              20069.75 |
-|[REMIPlus][remiplus]     |              18:47 |      33005326 |              25866.24 |
+|[REMI+][remiplus]        |              18:47 |      33005326 |              25866.24 |
 |[MIDI-Like][midilike]    |              18:38 |      27683849 |              21695.81 |
 |[TSD][tsd]               |              18:30 |      25259075 |              19795.51 |
 |[Structured][structured] |              18:22 |      28158348 |              22067.67 |
@@ -136,7 +139,7 @@ Należy uruchomić je w następującej kolejności:
 |Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
 |-------------------------|--------------------|---------------|-----------------------|-------|
 |[REMI][remi]             |              20:02 |      27505955 |              21556.39 | +7.4% |
-|[REMIPlus][remiplus]     |              20:43 |      34570154 |              27092.60 | +4.7% |
+|[REMI+][remiplus]        |              20:43 |      34570154 |              27092.60 | +4.7% |
 |[MIDI-Like][midilike]    |              20:58 |      28404955 |              22260.94 | +2.6% |
 |[TSD][tsd]               |              21:00 |      26111058 |              20463.21 | +3.4% |
 |[Structured][structured] |              18:12 |      28158348 |              22067.67 |   +0% |
@@ -157,7 +160,7 @@ Należy uruchomić je w następującej kolejności:
 |Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
 |-------------------------|--------------------|---------------|-----------------------|-------|
 |[REMI][remi]             |              03:02 |      15897898 |              12459.17 |-37.9% |
-|[REMIPlus][remiplus]     |              07:10 |      16936156 |              13272.85 |-48.7% |
+|[REMI+][remiplus]        |              07:10 |      16936156 |              13272.85 |-48.7% |
 |[MIDI-Like][midilike]    |              03:53 |      18532471 |              14523.88 |-33.1% |
 |[TSD][tsd]               |              02:58 |      14699582 |              11520.05 |-41.8% |
 |[Structured][structured] |              04:16 |      14869314 |              11653.07 |-47.2% |
@@ -178,7 +181,7 @@ Należy uruchomić je w następującej kolejności:
 |Tokenizator              |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
 |-------------------------|--------------------|---------------|-----------------------|-------|
 |[REMI][remi]             |              03:55 |      17436890 |              13665.27 |-31.9% |
-|[REMIPlus][remiplus]     |              08:20 |      18545390 |              14534.00 |-43.8% |
+|[REMI+][remiplus]        |              08:20 |      18545390 |              14534.00 |-43.8% |
 |[MIDI-Like][midilike]    |              04:11 |      19668473 |              15414.16 |-29.0% |
 |[TSD][tsd]               |              03:14 |      15506756 |              12152.63 |-38.6% |
 |[Structured][structured] |              04:15 |      14869314 |              11653.07 |-47.2% |
@@ -196,35 +199,37 @@ Należy uruchomić je w następującej kolejności:
 
 ### Domyślna tokenizacja, [Byte Pair Encoding][bpe], różny rozmiar słowozbioru
 
-|Rozmiar słowozbioru|Tokenizator             |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
-|-------------------|------------------------|--------------------|---------------|-----------------------|-------|
-|               500 |[REMI][remi]            |              02:38 |      17941505 |              14060.74 |-29.9% |
-|              1000 |[REMI][remi]            |              03:14 |      15897898 |              12459.17 |-37.9% |
-|              1500 |[REMI][remi]            |              03:22 |      14850838 |              11638.59 |-42.0% |
-|              2000 |[REMI][remi]            |              03:35 |      14153797 |              11092.32 |-44.7% |
-|              3000 |[REMI][remi]            |              04:20 |      13149400 |              11220.76 |-48.7% |
+|Rozmiar słowozbioru (`vocab_size`)|Tokenizator             |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
+|----------------------------------|------------------------|--------------------|---------------|-----------------------|-------|
+|                              500 |[REMI][remi]            |              02:38 |      17941505 |              14060.74 |-29.9% |
+|                             1000 |[REMI][remi]            |              03:14 |      15897898 |              12459.17 |-37.9% |
+|                             1500 |[REMI][remi]            |              03:22 |      14850838 |              11638.59 |-42.0% |
+|                             2000 |[REMI][remi]            |              03:35 |      14153797 |              11092.32 |-44.7% |
+|                             3000 |[REMI][remi]            |              04:20 |      13149400 |              11220.76 |-48.7% |
 
 ### Maksymalna tokenizacja, [Byte Pair Encoding][bpe], różny rozmiar słowozbioru
 
-|Rozmiar słowozbioru|Tokenizator             |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
-|-------------------|------------------------|--------------------|---------------|-----------------------|-------|
-|               500 |[REMI][remi]            |              03:14 |      19780309 |              15501.81 |-22.8% |
-|              1000 |[REMI][remi]            |              04:05 |      17436890 |              13665.27 |-31.9% |
-|              1500 |[REMI][remi]            |              04:16 |      16270492 |              12751.17 |-36.5% |
-|              2000 |[REMI][remi]            |              04:43 |      15473773 |              12126.78 |-39.6% |
-|              3000 |[REMI][remi]            |              05:45 |      14317688 |              11220.76 |-44.1% |
+|Rozmiar słowozbioru (`vocab_size`)|Tokenizator             |Czas trwania [mm:ss]|Sum. l. tokenów|Śr. l. tokenów na utwór|Zmiana[{sup}`?`](#tip-zmiana) |
+|----------------------------------|------------------------|--------------------|---------------|-----------------------|-------|
+|                              500 |[REMI][remi]            |              03:14 |      19780309 |              15501.81 |-22.8% |
+|                             1000 |[REMI][remi]            |              04:05 |      17436890 |              13665.27 |-31.9% |
+|                             1500 |[REMI][remi]            |              04:16 |      16270492 |              12751.17 |-36.5% |
+|                             2000 |[REMI][remi]            |              04:43 |      15473773 |              12126.78 |-39.6% |
+|                             3000 |[REMI][remi]            |              05:45 |      14317688 |              11220.76 |-44.1% |
 
 :::{admonition} Uwaga
 :class: attention
 :name: tip-zmiana
-Dla danych per tokenizator, kolumna `Zmiana` podaje procentową zmianę sumarycznej liczby tokenów względem domyślnej tokenizacji
+Dla danych per tokenizator, kolumna `Zmiana` podaje procentową zmianę sumarycznej liczby tokenów
+względem domyślnej tokenizacji
 bez BPE.
 :::
 
 :::{admonition} Uwaga
 :class: attention
 :name: tip-zmiana2
-Dla miar statystycznych, kolumna `Zmiana` podaje procentową zmianę sumarycznej liczby tokenów względem domyślnej tokenizacji
+Dla miar statystycznych, kolumna `Zmiana` podaje procentową zmianę sumarycznej liczby tokenów
+względem domyślnej tokenizacji
 bez BPE biorąc pod uwagę tylko te tokenizatory, które wspierają BPE.
 :::
 
@@ -237,12 +242,35 @@ odrzuceniu najwyższej i najniższej wartości.
 
 ## Analiza wyników
 
-Czas pracy większości tokenizatorów dla domyślnej i maksymalnej konfiguracji był podobny i nie odstawał
-od średniej arytmetycznej (18:57 dla konfiguracji domyślnej, 20:59 dla maksymalnej) o więcej, niż
-wartość odchylenia standardowego (odpowiednio 01:02 i 01:59). W obu przypadkach najdłużej pracował
-tokenizator [CPWord][cpword], o ponad dwa razy wartość odchylenia standardowego powyżej średniej.
+Czas pracy większości tokenizatorów dla domyślnej i maksymalnej konfiguracji był podobny i nie
+odstawał od średniej arytmetycznej o więcej, niż wartość odchylenia standardowego. W obu przypadkach
+najdłużej pracował [CPWord][cpword], o czasie pracy odstającym od średniej o ponad dwukrotność
+odchylenia standardowego. Prawdopodobnie wynika to z wykorzystywanej przez ten tokenizator
+zaawansowanej reprezentacji wyjściowej sekwencji.
 
-...
+Dla konfiguracji domyślnej, sumaryczna liczba tokenów dla większości tokenizatorów jest bardzo
+bliska średniej. Wyjątkami są cztery tokenizatory: [Octuple][octuple] zwracał znacznie mniej
+tokenów, a [REMI+][remiplus] i [MuMIDI][mumidi] więcej.
+Różnica w liczbie tokenów pomiędzy najmniejszą i największą wartością wynosiła aż rząd
+wielkości (!).
+
+Zmiana konfiguracji nie zmieniła wyników dla tokenizatorów [Structured][structured] i [Octuple][octuple].
+Dla reszty konfiguracji czas pracy wzrósł średnio o 13% (najwięcej dla [CPWord][cpword], 20%), a
+liczba tokenów o 6%. Zmiana liczby tokenów jest jednak bardziej różnorodna: [CPWord][cpword] i
+[MMM][mmm] stworzyły mniej niż 1% więcej tokenów (przy wydłużonym czasie pracy), ale dla
+[MuMIDI][mumidi] ta liczba wzrosła o aż 25%.
+
+Zastosowanie [Byte Pair Encoding][bpe] wydłuża proces tokenizacji średnio o około 20%, redukując przy tym
+40% tokenów. Dla [REMI+][remi] czas potrzebny do zastosowania BPE jest prawie dwa razy dłuższy,
+niż dla innych tokenizatorów - jest najbardziej zaawansowanym tokenizatorem wspierającym BPE. BPE
+przyniosło najsłabszy efekt dla prostego w działaniu [MIDI-Like][midilike], a najsilniejszy dla
+tokenizatorów o skomplikowanej sekwencji tokenów jak [REMI+][remiplus] i [Structured][structured].
+
+Zwiększanie parametru rozmiaru słowozbioru (`vocab_size`) BPE zwiększa wydajność tej techniki
+kosztem wydłużonego czasu pracy. Można zaobserwować, że wzrost wydajności nie jest jednak liniowy:
+wystepuje efekt malejącego zysku. Prawdopodobnie będzie się to odbywać aż do osiągnięcia punktu,
+w którym niemożliwe będzie dalsze skompresowanie sekwencji, choć nie zebrano wystarczająco danych,
+żeby to udowodnić.
 
 ## Bibliografia
 
