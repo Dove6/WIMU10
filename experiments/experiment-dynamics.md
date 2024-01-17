@@ -10,6 +10,13 @@ Finalnie metryki te przybrały postać trzech statystyk:
 - macierzy przejść wartości dynamiki,
 - stosunkowi zmienności dynamiki.
 
+## Zbiory danych
+
+W eksperymencie zostały wykorzystane następujące zbiory danych:
+- [MAESTRO][maestro][^hawthorne2018],
+- [MusicNet][musicnet][^thickstun2017],
+- Zmodyfikowany MusicNet.
+
 ## Opis opracowanych metryk
 
 Każda z poniższych metryk umożliwia uruchomienie w dwóch trybach:
@@ -272,3 +279,9 @@ Jeśli chodzi o możliwości dalszego rozwijania tematu metryk powiązanych z dy
 ---
 
 [^logicpro]: Zgodnie z poziomami zdefiniowanymi w oprogramowaniu Logic Pro.
+
+[^hawthorne2018]: ["Enabling Factorized Piano Music Modeling and Generation with the MAESTRO Dataset", Curtis Hawthorne et.al., 2019](https://openreview.net/forum?id=r1lYRjC9F7)
+[^thickstun2017]: ["Learning Features of Music from Scratch", John Thickstun et al., 2017](https://arxiv.org/abs/1611.09827)
+
+[maestro]: https://magenta.tensorflow.org/datasets/maestro
+[musicnet]: https://www.kaggle.com/datasets/imsparsh/musicnet-dataset
