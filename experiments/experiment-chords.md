@@ -5,6 +5,25 @@ Miary te przyjęły postać dwóch statysyk:
 - histogramu akordów,
 - macierzy przejść akordów.
 
+# Zbiory danych
+
+Metryki zostały przedstawione na utworze
+"L.v.Beethoven 3mov - Piano Sonata No.4 in Eb Major Op.7" ze zbioru MusicNet. TODO: źródło
+oraz dla danych syntetycznych, wygenerowanych z wykorzystaniem różnych narzędzi, m.in.:
+- GiantMusicTransformer - różne wartości temperatury: 0.9, 0.15, 1.0, TODO: źródło + 5 słów o narzędzi + co to temperatura
+- MidiRandomizer - narzędzie do generowania losowych plików MIDI, TODO: źródło
+- TensorFlow-RNN - różne wartości temperatury: 0.25, 2.0, 3.0 oraz 10.0. TODO: źródło + 5 słów o narzędzi
+
+Wygenerowane dane znajdują sie w katalogu `.data\generated` w odpowiednych podfolderach:
+- `gmt` - GiantMusicTransformer,
+- `mr` - MidiRandomizer,
+- `tf_rnn` - TensorFlow-RNN.
+
+Wyniki dla każdego z wygenerowanych zestawów można odtworzyć za pomocą podanych poleceń:
+- GiantMusicTransformer - `python -m notebooks.chords_analysis gtm`
+- MidiRandomizer - `python -m notebooks.chords_analysis md`
+- TensorFlow-RNN - `python -m notebooks.chords_analysis tf_rnn`
+
 # Opis metryk
 
 ## Histogram akordów
@@ -17,7 +36,7 @@ Argumenty:
 - `error_frame` - odstęp jaki może nastąpić pomiędzy poszczególnymi pojedyńczymi nutami by nadal zostały zidentyfikowane jako jeden akord (podawany w impulsach zegarowych). Ze względu na to, że nuty jednego akordu mogą zostać zanotowane z lekkimi opóźnieniami (ze względu na styl grania danej osoby, sposób w jaki został przekonwertowany utwór do MIDI,błąd ludzki lub sprzętowy), wartość ta została wprowadzona by zaniechać identyfikacji kilku mniejszych akordów, gdzie znajduje się jeden pojedynczy akord.
 </details>
 
-Histogram akordów pozwala na łatwiejszą analizę typu oraz częstości występowania poszczególnych akordów w utworze. Korzystanie z metryki umożliwia sprawniejszą identyfikację utworów z nienaturalnym, odstępującym od normy rozkładem. TODO: jak wygląda jak jest nienaturalnie, a jak wygląda jak jest naturalnie?
+Histogram akordów pozwala na łatwiejszą analizę typu oraz częstości występowania poszczególnych akordów w utworze. Korzystanie z metryki umożliwia sprawniejszą identyfikację utworów z nienaturalnym, odstępującym od normy rozkładem.
 
 ![a](../images/chords/experiment-chord_histogram.png)
 &nbsp;*<span id="rys-1">Rys. 1</span>. Przykład histogramu akordów wyliczonego dla utworu nr 151 ze zbioru MusicNet*
@@ -33,31 +52,11 @@ Argumenty:
 </details>
 
 
-Macierz przejść akordów przedstawia graficznie prawdopodbieństwa przejścia z jednego akordu do drugiego. Kolorowe punkty na mapie reprezentują przejście z akordu na osi Y do odpowiednieka na osi X. Akordy rozpoznane najwcześniej znajdują się na początku układu współrzędnych, natomiast najpóźniej rozpoznane są na ich krańcach.
-TODO: gdzie jest "początek układu"? czy to jest jakieś nawiązanie do czasu?
+Macierz przejść akordów przedstawia graficznie prawdopodbieństwa przejścia z jednego akordu do drugiego. Kolorowe punkty na mapie reprezentują przejście z akordu na osi Y do odpowiednieka na osi X.
 ![a](../images/chords/experiment-chord_transition.png)
 &nbsp;*<span id="rys-2">Rys. 2</span>. Przykład macierzy przejść akordów wyliczonej dla utworu nr 151 ze zbioru MusicNet*
 
-# Zbiory danych
-
-Metryki zostały obliczone dla utworu
-"L.v.Beethoven 3mov - Piano Sonata No.4 in Eb Major Op.7" ze zbioru MusicNet. TODO: ref
-oraz dla danych syntetycznych, wygenerowanych z wykorzystaniem różnych narzędzi, m.in.:
-- GiantMusicTransformer - różne wartości temperatury: 0.9, 0.15, 1.0, TODO: ref + coś o narzędziu + co to temperatura
-- MidiRandomizer - narzędzie do generowania losowych plików MIDI, TODO: ref
-- TensorFlow-RNN - różne wartości temperatury: 0.25, 2.0, 3.0 oraz 10.0. TODO: ref
-
-Wygenerowane dane znajdują sie w katalogu `.data\generated` w odpowiednych podfolderach:
-- `gmt` - GiantMusicTransformer,
-- `mr` - MidiRandomizer,
-- `tf_rnn` - TensorFlow-RNN.
-
-Wyniki dla każdego z wygenerowanych zestawów można odtworzyć za pomocą podanych poleceń:
-- GiantMusicTransformer - `python -m notebooks.chords_analysis gtm`
-- MidiRandomizer - `python -m notebooks.chords_analysis md`
-- TensorFlow-RNN - `python -m notebooks.chords_analysis tf_rnn`
-
-## Wyniki dla wygenerowanych danych
+# Wyniki dla wygenerowanych danych
 
 W przypadku danych z MidiRandomizer oraz TensorFLow-RNN wszystkie wyniki wyglądały identycznie:
 
@@ -75,16 +74,16 @@ Na histogramie widać rozkład głównie jednorodny, gdzie prawie wszystkie akor
 ![a](../images/chords/exp_analysis_gmt_random.png)
 &nbsp;*<span id="rys-4">Rys. 4</span>. Macierz przejść i histogram akordów dla pliku 'gmt-009.mid'*
 
-W przypadku `gmt-000.mid` można klarowanie słyszeć zdominowanie utworu przez jeden akord, gdzie pozostałych praktycznie nie słychać. Wynikowa macierz przejść utraciła przekątną linię 'przejść' w zamian za znacznie większą różnorodność. Na histogramie natomiast widać rozkład jednomodalny, gdzie jeden akord pojawia się o wiele częściej niż pozostałe (prawie o rząd wielkośći). Utworami posiadającymi podobny charakter oraz identyczne wyniki metryk były: `gmt-003.mid` oraz `gmt-001.mid`.
+W przypadku `gmt-000.mid` dominuje jeden akord, pozostałych praktycznie nie widać. Wynikowa macierz przejść nie jest wprost przekątną, ma znacznie większą różnorodność. Histogramem dominuje głównie jeden akord, znajdują się również 4 akordy drugorzędne i pojedyncze wystąpienia innych akordów. Utworami posiadającymi podobny charakter oraz identyczne wyniki metryk były: `gmt-003.mid` oraz `gmt-001.mid`.
 ![a](../images/chords/exp_analysis_gmt_outnumbers.png)
 &nbsp;*<span id="rys-5">Rys. 5</span>. Macierz przejść i histogram akordów dla pliku 'gmt-000.mid'*
 
-Bardziej ekstremalnym przypadkiem utworów zdominowanych przez jeden akord są `gmt-004.mid`, `gmt-005.mid` oraz `gmt-006.mid`, gdzie grany jest praktycznie tylko jeden akord.  
+Ekstremalnym przypadkiem dominującego akordu są `gmt-004.mid`, `gmt-005.mid` oraz `gmt-006.mid`, gdzie grany jest prawie wyłącznie tylko jeden akord.  
 ![a](../images/chords/exp_analysis_gmt_one.png)
 &nbsp;*<span id="rys-6">Rys. 6</span>. Macierz przejść i histogram akordów dla pliku 'gmt-004.mid'*
 
 
-Najlepiej brzmiącym wygenerowanym utworem był `gmt-008.mid`(dla wartości 'temperature: 1.0'). Z wszystkich danych wygenerowanych przy pomocy 'GiantMusicTransformer', ten charakteryzował się największa spoistością. Najbardziej brzmiał jak rzeczywiste utwory. Struktura wyników dla tego utworu jest również bardzo zbliżona do utworów ze zbioru MusicNet. W macierzy przejść duże skupienie 'przejść' jest widoczne na przękatnej, z lekkimi wariacjami odbywającymi się co kilka akordów. W przypadku histogramu można sugerować istnienie rozkładu wielomodalnego. Żaden z akordów pojedyńczo nie dominuje utworu oraz nie istnieje tak duża losowość brzmienia jak w przypadku utworów z rozkładem płaskim. 
+Najlepiej brzmiącym utworem był `gmt-008.mid` wygenerowany z temperaturą 1.0. Z wszystkich danych wygenerowanych przy pomocy GiantMusicTransformer, ten charakteryzował się największa spójnością. Wyników dla tego utworu są bardzo zbliżone do utworów ze zbioru MusicNet. W macierzy przejść duże skupienie 'przejść' jest widoczne na przękatnej, z lekkimi wariacjami odbywającymi się co kilka akordów. Na histogramie ponownie zauważamy motyw gdzie dominuje jeden akord, jest kilka akordów drugorzędnych oraz wiele pojedynczych akordów. Po syntezie MIDI jest to też najlepiej brzmiący utwór ze wszystkich wygenerowanych.
 ![a](../images/chords/exp_analysis_gmt_best.png)
 &nbsp;*<span id="rys-7">Rys. 7</span>. Macierz przejść i histogram akordów dla pliku 'gmt-008.mid'*
 
@@ -92,6 +91,17 @@ Najlepiej brzmiącym wygenerowanym utworem był `gmt-008.mid`(dla wartości 'tem
 
 # Wnioski
 
-- Obie metryki znacznie lepiej sprawują się w łącznej analizie utworów niż osobno. 
-- Pojawienie sie w histogramie rozkładu płaskiego może sugerować dużą losowość i brak spoistości w utworze.
-- Znaczne zatracenie na macierzy przejść lini przekątnej lub dla histogramu pojawienie się rozkładu jednomodalnego sugerują zdominowanie utworu przez pojedyńczy akord.
+Metryki te pozwalają zwizualizować akordy w utworze, co pozwala na wstępną analizę czy utwór jest spójny czy nie.
+
+Zarówno kompletny chaos, jak i idealny porządek w postaci przekątnej na wykresie przejść akordów, sugeruje, że utwór nie ma żadnej struktury.
+
+Podobne informacje możemy czerpać z histogramu, gdzie brak dominujących akordów lub zbyt duża dominancja pozbawia utwór oryginalności i struktury. W tym wypadku dobrym podziałem okazał się jeden akord dominujący, ok. 4 akordy o połowie jego częstotliwości występowania oraz bogata ilość innych akordów, które występują rzadko, ok. 1-2 razy.
+
+# Przyszłe rozszerzenia
+
+Potencjalnym punktem rozwoju metryk jest uwzględnienie faktu, że akordy są do siebie podobne, np.:
+- akord jest innym akordem wzbogaconym o nutę,
+- akord jest innym akordem z pojedynczą zmienioną nutą,
+- akord jest innym akordem, ale z nut w innych oktawach,
+- akord jest ton wyżej w wybranym kluczu.
+Jest to istotne, ponieważ zbliżone do siebie akordy brzmią naturalnie dla ucha ludzkiego, a na obecnych metrykach są ułożone arbitralnie i nie widać po między nimi żadnego połączenia.
