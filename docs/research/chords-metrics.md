@@ -1,4 +1,4 @@
-# Eksperyment - Miary oparte o akordy
+# Miary oparte o akordy
 
 W ramach projektu zostały zaproponowane dwie miary, wysokościowe oraz harmoniczne, oparte o akordy.
 Miary te przyjęły postać dwóch statysyk:
@@ -36,7 +36,7 @@ Argumenty:
 
 Histogram akordów pozwala na łatwiejszą analizę typu oraz częstości występowania poszczególnych akordów w utworze. Korzystanie z metryki umożliwia sprawniejszą identyfikację utworów z nienaturalnym, odstępującym od normy rozkładem.
 
-![a](../images/chords/experiment-chord_histogram.png)
+![a](../../images/chords/experiment-chord_histogram.png)
 &nbsp;*<span id="rys-1">Rys. 1</span>. Przykład histogramu akordów wyliczonego dla utworu nr 151 ze zbioru MusicNet*
 
 
@@ -51,14 +51,14 @@ Argumenty:
 
 
 Macierz przejść akordów przedstawia graficznie prawdopodbieństwa przejścia z jednego akordu do drugiego. Kolorowe punkty na mapie reprezentują przejście z akordu na osi Y do odpowiednieka na osi X.
-![a](../images/chords/experiment-chord_transition.png)
+![a](../../images/chords/experiment-chord_transition.png)
 &nbsp;*<span id="rys-2">Rys. 2</span>. Przykład macierzy przejść akordów wyliczonej dla utworu nr 151 ze zbioru MusicNet*
 
 # Wyniki dla wygenerowanych danych
 
 W przypadku danych z MidiRandomizer oraz TensorFLow-RNN wszystkie wyniki wyglądały identycznie:
 
-![a](../images/chords/exp_analysis_tf_rnn.png)
+![a](../../images/chords/exp_analysis_tf_rnn.png)
 &nbsp;*<span id="rys-3">Rys. 3</span>. Macierz przejść i histogram akordów dla pliku 'tf_rnn-000.mid'*
 
 
@@ -69,20 +69,20 @@ W przypadku zestawu GiantMusicTransformer pojawiło sie kilka bardziej nadający
 
 Utwór `gmt-009.mid` charakteryzuje się brakiem struktury i spójności. Akordy są odgrywane w sposób całkowicie losowy. Macierzą przejść dominuje pojedyncza diagonala, co sugeruje, że prawie nigdy, poza jednym przypadkiem, nie wracamy do wcześniej występujących akordów.
 Na histogramie widać rozkład głównie jednorodny, gdzie prawie wszystkie akordy pojawiają się tylko raz. Przykładami danych o podobnej charakterystyce dźwięku oraz podobnych wynikach metryk były: `gmt-002.mid`, `gmt-010.mid` oraz `gmt-011.mid`.
-![a](../images/chords/exp_analysis_gmt_random.png)
+![a](../../images/chords/exp_analysis_gmt_random.png)
 &nbsp;*<span id="rys-4">Rys. 4</span>. Macierz przejść i histogram akordów dla pliku 'gmt-009.mid'*
 
 W przypadku `gmt-000.mid` dominuje jeden akord, pozostałych praktycznie nie widać. Wynikowa macierz przejść nie jest wprost przekątną, ma znacznie większą różnorodność. Histogramem dominuje głównie jeden akord, znajdują się również 4 akordy drugorzędne i pojedyncze wystąpienia innych akordów. Utworami posiadającymi podobny charakter oraz identyczne wyniki metryk były: `gmt-003.mid` oraz `gmt-001.mid`.
-![a](../images/chords/exp_analysis_gmt_outnumbers.png)
+![a](../../images/chords/exp_analysis_gmt_outnumbers.png)
 &nbsp;*<span id="rys-5">Rys. 5</span>. Macierz przejść i histogram akordów dla pliku 'gmt-000.mid'*
 
 Ekstremalnym przypadkiem dominującego akordu są `gmt-004.mid`, `gmt-005.mid` oraz `gmt-006.mid`, gdzie grany jest prawie wyłącznie tylko jeden akord.  
-![a](../images/chords/exp_analysis_gmt_one.png)
+![a](../../images/chords/exp_analysis_gmt_one.png)
 &nbsp;*<span id="rys-6">Rys. 6</span>. Macierz przejść i histogram akordów dla pliku 'gmt-004.mid'*
 
 
 Najlepiej brzmiącym utworem był `gmt-008.mid` wygenerowany z temperaturą 1.0. Z wszystkich danych wygenerowanych przy pomocy GiantMusicTransformer, ten charakteryzował się największa spójnością. Wyników dla tego utworu są bardzo zbliżone do utworów ze zbioru MusicNet. W macierzy przejść duże skupienie 'przejść' jest widoczne na przękatnej, z lekkimi wariacjami odbywającymi się co kilka akordów. Na histogramie ponownie zauważamy motyw gdzie dominuje jeden akord, jest kilka akordów drugorzędnych oraz wiele pojedynczych akordów. Po syntezie MIDI jest to też najlepiej brzmiący utwór ze wszystkich wygenerowanych.
-![a](../images/chords/exp_analysis_gmt_best.png)
+![a](../../images/chords/exp_analysis_gmt_best.png)
 &nbsp;*<span id="rys-7">Rys. 7</span>. Macierz przejść i histogram akordów dla pliku 'gmt-008.mid'*
 
 
