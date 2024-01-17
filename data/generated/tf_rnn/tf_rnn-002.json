@@ -1,0 +1,5 @@
+{
+    "tool": "https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/audio/music_generation.ipynb",
+    "settings": "temperature: 0.25; num_predictions: 120",
+    "description": "",
+}
