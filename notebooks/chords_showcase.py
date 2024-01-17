@@ -30,8 +30,8 @@ def visualize_chord_transition(chords_dict: dict, transition_matrix: np.ndarray)
     plt.show()
 
 
-def visualize_chord_histogram(chords_hist: dict):
-    plt.bar(chords_hist.keys(), chords_hist.values())
+def visualize_chord_histogram(chords_hist: dict[str, int]):
+    plt.bar(list(chords_hist.keys()), list(chords_hist.values()))
     plt.xticks(rotation=90)
     plt.title('Chord histogram')
     plt.show()

@@ -26,7 +26,7 @@ były nam w pełni potrzebne. Jest też kilkakrotnie szybszy, bo stworzony zosta
 
 Do tego eksperymentu wymagany jest Python w wersji 3.9.X, jest to narzucone przez kod użyty do modelu [CLaMP][clamp].
 
-Przetważanie zaczyna się od pobrania zbioru [MAESTRO][maestro]:
+Przetwarzanie zaczyna się od pobrania zbioru [MAESTRO][maestro]:
 
 ```sh
 py -m setup_dataset maestro
