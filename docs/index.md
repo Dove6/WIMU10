@@ -14,6 +14,8 @@ Metrics<api/metrics.md>
 ```{toctree}
 :hidden:
 :caption: Eksperymenty
+Miary oparte o akordy<research/chords-metrics.md>
+Miary oparte o dynamikę<research/dynamics-metrics.md>
 Embeddingi CLaMP<research/embeddings.md>
 Tokenizacja<research/tokenization.md>
 ```
