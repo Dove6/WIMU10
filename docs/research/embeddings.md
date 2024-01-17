@@ -127,11 +127,11 @@ pojedynczych utworów, natomiast nie mają one dużego wkładu w łączoną śre
 
 Analiza korelacji z istniejącymi metrykiami.
 Kosztowna czasowo, najlepiej dobrać specjalny zbiór do tych celów.
-Alanogicznie trzeba też wybrać zbiór metryk.
+Analogicznie trzeba też wybrać zbiór metryk.
 Wystąpienie korelacji będzie oznaczało, że wybrane wartości embeddingów, odpowiadają pewnym metrykom.
 
 Analiza pomiędzy utworami różnych kategorii.
-Temat w sumie oklepany, na tym operają się klasyfikatory.
+Temat w sumie oklepany, na tym opierają się klasyfikatory.
 
 ## Bibliografia
 
