@@ -20,7 +20,7 @@ Zamiana MIDI do MusicXML poprzez [MusPy][muspy] nie działała, ponieważ utwory
 zbyt krótkie nuty i konwerter nie był sobie w stanie z tym poradzić. Nie wiemy też, czy format
 pośredni zachowywał wszystkie informacje.
 Alternatywny konwerter pozwalał obsłużyć krótkie nuty, posiadał też bogatą paletę opcji, które nie
-były nam potrzebne. Jest też kilkakrotnie szybszy, bo stworzony został dokładnie do tego typu operacji.
+były nam w pełni potrzebne. Jest też kilkakrotnie szybszy, bo stworzony został dokładnie do tego typu operacji.
 
 ## Uruchomienie
 
