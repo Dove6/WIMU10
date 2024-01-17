@@ -11,20 +11,18 @@
 # - added music embedding stored in JSON.
 
 import argparse
-import subprocess
-from .utils import *
-from transformers import AutoTokenizer
+from .utils import *  # noqa: F403
 from pathlib import Path
 from json import dump
 
-if torch.cuda.is_available():
-    device = torch.device('cuda')
-    print('There are %d GPU(s) available.' % torch.cuda.device_count())
-    print('We will use the GPU:', torch.cuda.get_device_name(0))
+if torch.cuda.is_available():  # noqa: F405
+    device = torch.device('cuda')  # noqa: F405
+    print('There are %d GPU(s) available.' % torch.cuda.device_count())  # noqa: F405
+    print('We will use the GPU:', torch.cuda.get_device_name(0))  # noqa: F405
 
 else:
     print('No GPU available, using the CPU instead.')
-    device = torch.device('cpu')
+    device = torch.device('cpu')  # noqa: F405
 
 
 def get_args(parser):
@@ -56,13 +54,13 @@ CLAMP_MODEL_NAME = 'sander-wood/clamp-small-512'
 BATCH_SIZE = 16
 
 # load CLaMP model
-model = CLaMP.from_pretrained(CLAMP_MODEL_NAME)
+model = CLaMP.from_pretrained(CLAMP_MODEL_NAME)  # noqa: F405
 music_length = model.config.max_length
 model = model.to(device)
 model.eval()
 
 # initialize patchilizer
-patchilizer = MusicPatchilizer()
+patchilizer = MusicPatchilizer()  # noqa: F405
 
 
 def encoding_data(data):
@@ -78,7 +76,7 @@ def encoding_data(data):
     ids_list = []
     for item in data:
         patches = patchilizer.encode(item, music_length=music_length, add_eos_patch=True)
-        ids_list.append(torch.tensor(patches).reshape(-1))
+        ids_list.append(torch.tensor(patches).reshape(-1))  # noqa: F405
 
     return ids_list
 
@@ -124,7 +122,7 @@ def load_music(filename):
     with open(filename, 'r') as f:
         text = f.read()
     output = text.replace('\r', '')
-    music = unidecode(output).split('\n')
+    music = unidecode(output).split('\n')  # noqa: F405
     music = abc_filter(music)
 
     return music
@@ -142,16 +140,16 @@ def get_features(ids_list):
     """
     features_list = []
     print('Extracting music features...')
-    with torch.no_grad():
-        for ids in tqdm(ids_list):
+    with torch.no_grad():  # noqa: F405
+        for ids in tqdm(ids_list):  # noqa: F405
             ids = ids.unsqueeze(0)
-            masks = torch.tensor([1] * (int(len(ids[0]) / PATCH_LENGTH))).unsqueeze(0)
+            masks = torch.tensor([1] * (int(len(ids[0]) / PATCH_LENGTH))).unsqueeze(0)  # noqa: F405
             features = model.music_enc(ids, masks)['last_hidden_state']
             features = model.avg_pooling(features, masks)
             features = model.music_proj(features)
             features_list.append(features[0])
 
-    return torch.stack(features_list).to(device)
+    return torch.stack(features_list).to(device)  # noqa: F405
 
 
 def main(input_dir: Path, output_dir: Path, batch_size: int):
@@ -163,7 +161,7 @@ def main(input_dir: Path, output_dir: Path, batch_size: int):
         srcs = all_srcs[start_idx : start_idx + batch_size]
         for src in srcs:
             query = load_music(src)
-            queries.append(unidecode(query))
+            queries.append(unidecode(query))  # noqa: F405
         dsts = [output_dir.joinpath(*src.parts[len(input_dir.parts) : -1]).joinpath(f'{src.stem}.json') for src in srcs]
 
         # encode query

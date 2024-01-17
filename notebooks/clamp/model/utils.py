@@ -80,7 +80,7 @@ class MusicPatchilizer:
         patch = [self.pad_id] * patch_length
 
         for i in range(min(patch_length, len(bar))):
-            chr = bar[i]
+            chr = bar[i]  # noqa: A001
             idx = ord(chr)
             if idx >= 32 and idx < 127:
                 patch[i] = idx - 31
@@ -128,7 +128,7 @@ class MusicPatchilizer:
         lines = music.split('\n')
         try:
             lines.remove('')
-        except:
+        except:  # noqa: E722
             pass
 
         body = ''
