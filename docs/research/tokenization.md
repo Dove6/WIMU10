@@ -19,7 +19,7 @@ W ramach [MidiTok][miditok] dostępne jest 9 tokenizatorów o wspólnym interfej
 
 * [REMI][remi][^huang2020] (2020) - jednościeżkowy tokenizator,
 * [REMI+][remiplus][^rutte2022] (2022) - REMI wspierający wiele ścieżek i zmienne metrum,
-* [MIDI-Like][midilike][^oore2018] (2018) - prosty tokenizer bezpośrednio zamieniający wydarzenia
+* [MIDI-Like][midilike][^oore2018] (2018) - prosty tokenizator bezpośrednio zamieniający wydarzenia
 MIDI na tokeny,
 * [TSD][tsd] - podobnie jak MIDI-Like, ale używa tokenów *Duration* zamiast *NoteOn* i *NoteOff*,
 * [Structured][structured][^huang2020] - podobnie jak TSD, ale kolejność tokenów jest ustalona
@@ -101,6 +101,12 @@ Wszystkie procesy tokenizacji zostały przeprowadzone na tej samej maszynie.
 Pełną listę zależności można znaleźć w pliku [`requirements.txt`](https://github.com/Dove6/WIMU10/tree/main/requirements.txt)
 w repozytorium projektu.
 :::
+
+Pobieranie zbioru danych [MAESTRO][maestro]:
+
+```sh
+python -m setup_dataset maestro
+```
 
 Skrypty, które wykorzystano do przeprowadzenia badań, dostępne są w repozytorium projektu pod
 ścieżką [`/notebooks/tokenizers/`](https://github.com/Dove6/WIMU10/tree/main/notebooks/tokenizers/).
@@ -221,8 +227,7 @@ Należy uruchomić je w następującej kolejności:
 :class: attention
 :name: tip-zmiana
 Dla danych per tokenizator, kolumna `Zmiana` podaje procentową zmianę sumarycznej liczby tokenów
-względem domyślnej tokenizacji
-bez BPE.
+względem domyślnej tokenizacji bez BPE.
 :::
 
 :::{admonition} Uwaga
@@ -249,15 +254,15 @@ odchylenia standardowego. Prawdopodobnie wynika to z wykorzystywanej przez ten t
 zaawansowanej reprezentacji wyjściowej sekwencji.
 
 Dla konfiguracji domyślnej, sumaryczna liczba tokenów dla większości tokenizatorów jest bardzo
-bliska średniej. Wyjątkami są cztery tokenizatory: [Octuple][octuple] zwracał znacznie mniej
-tokenów, a [REMI+][remiplus] i [MuMIDI][mumidi] więcej.
+bliska średniej. Wyjątkami są trzy tokenizatory: [Octuple][octuple] zwracał znacznie mniej tokenów,
+a [REMI+][remiplus] i [MuMIDI][mumidi] więcej.
 Różnica w liczbie tokenów pomiędzy najmniejszą i największą wartością wynosiła aż rząd
 wielkości (!).
 
 Zmiana konfiguracji nie zmieniła wyników dla tokenizatorów [Structured][structured] i [Octuple][octuple].
 Dla reszty konfiguracji czas pracy wzrósł średnio o 13% (najwięcej dla [CPWord][cpword], 20%), a
 liczba tokenów o 6%. Zmiana liczby tokenów jest jednak bardziej różnorodna: [CPWord][cpword] i
-[MMM][mmm] stworzyły mniej niż 1% więcej tokenów (przy wydłużonym czasie pracy), ale dla
+[MMM][mmm] stworzyły tylko 1% więcej tokenów (przy wydłużonym czasie pracy), ale dla
 [MuMIDI][mumidi] ta liczba wzrosła o aż 25%.
 
 Zastosowanie [Byte Pair Encoding][bpe] wydłuża proces tokenizacji średnio o około 20%, redukując przy tym
