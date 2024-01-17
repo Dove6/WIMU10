@@ -59,8 +59,8 @@ make html  # Lub `.\make.bat html`, jeżeli Make nie jest zainstalowany (tylko W
   - `DESIGN_PROPOSAL.md`: *Design proposal* projektu,
 - `images/`: Katalog na rysunki i wykresy dołączane do dokumentacji,
 - `notebooks/`: Skrypty do eksperymentów,
-  - ``: TODO:
-  - ``: TODO:
+  - `chords_*`: Pliki do metryk harmonicznych,
+  - `dynamics_*`: Plik do metryk dynamicznych,
   - `clamp/`: Eksperyment o embeddingach CLaMP,
   - `tokenizers/`: Eksperyment o tokenizatorach MidiTok,
   - `self_similarity/`: Eksperyment o samopowtarzalności utworów,
