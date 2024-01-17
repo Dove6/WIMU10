@@ -11,6 +11,11 @@ Comparator = Callable[[Notes, Notes], int]
 SimilarityGroups = Collection[(int, int), int]
 
 
+def dummy_metric():
+    """Dummy metric."""
+    pass
+
+
 def score_matching_notes(a: Notes, b: Notes) -> int:
     score = 0
     for c in a:

@@ -1,0 +1,5 @@
+{
+    "tool": "dynamics_randomizer.py",
+    "settings": "./data/raw/musicnet/musicnet_midis/Bach/2186_vs6_1.mid",
+    "description": "random",
+}
