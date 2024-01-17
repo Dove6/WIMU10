@@ -1,3 +1,15 @@
+# CLaMP: Contrastive Language-Music Pre-training for Cross-Modal Symbolic Music Information Retrieval
+# Shangda Wu and Dingyao Yu and Xu Tan and Maosong Sun, 2023
+# Forked from https://github.com/microsoft/muzic/blob/main/clamp/clamp.py
+# Licensed under MIT
+
+# Modified as following:
+# - removed inference,
+# - hardwired "music" model,
+# - used ABC directly (instead of MusicXML),
+# - added in/out directory arguments (removed other ones),
+# - added music embedding stored in JSON.
+
 import argparse
 import subprocess
 from .utils import *

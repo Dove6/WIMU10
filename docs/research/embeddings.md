@@ -14,7 +14,8 @@ Silnie zmodyfikowany interfejs użytkownika:
 - argumenty to wejściowy folder z plikami ABC i wyjściowy folder gdzie trafią pliki JSON
 - obsługiwanie wielu utworów na raz (batching)
 - zapisywanie embeddingów utworów do plików JSON
-- usunięcie fragmentu 
+- usunięcie fragmentu
+Model w wersji `sander-wood/clamp-small-512`
 
 
 Narzędzie do bezpośredniej zamiany formatu MIDI na format ABC [midi2abc](https://github.com/sshlien/abcmidi)
