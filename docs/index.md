@@ -17,6 +17,7 @@ Metrics<api/metrics.md>
 Miary oparte o akordy<research/chords-metrics.md>
 Miary oparte o dynamikę<research/dynamics-metrics.md>
 Embeddingi CLaMP<research/embeddings.md>
+Samopodobieństwo<research/self_similarity.md>
 Tokenizacja<research/tokenization.md>
 ```
 

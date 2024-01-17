@@ -36,5 +36,5 @@ for song_idx, song in enumerate(test_songs):
         score = compute_self_similarity(track, resolution=resolution, track_end=track_end)
         total_scores[song][track_idx] = score
 
-with open('results/self_similarity_score.json', 'wt') as f:
+with open('data/self_similarity_score.json', 'wt') as f:
     json.dump(total_scores, f, indent=4)
