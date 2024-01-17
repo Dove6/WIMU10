@@ -1,4 +1,4 @@
-# License
+# Licencja
 
 ```{include} ../LICENSE
 :relative-docs: docs/

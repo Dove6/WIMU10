@@ -1,12 +1,13 @@
 ```{toctree}
 :hidden:
-:caption: Project Info
-License<LICENSE.md>
+:caption: Informacje Ogólne
+Licencja<LICENSE.md>
+Design Proposal<DESIGN_PROPOSAL.md>
 ```
 
 ```{toctree}
 :hidden:
-:caption: API Documentation
+:caption: Dokumentacja API
 Metrics<api/metrics.md>
 ```
 

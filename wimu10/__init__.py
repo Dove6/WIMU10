@@ -1,9 +1,9 @@
 from . import metrics
-from . import metrics_dynamics
 from .metrics import *
 from .metrics_dynamics import *
 
-__all__ = [
+__all__ = [  # noqa: F405
     'metrics',
+    'metrics_chords'
     'metrics_dynamics',
 ]
