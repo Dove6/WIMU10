@@ -99,7 +99,7 @@ W ten sposób otrzymaliśmy listę pięciu zbiorów danych nadających się do n
 
 ## Planowany stack technologiczny
 
-Język programowania: Python  
+Język programowania: Python
 Język opisu: Markdown
 
 Docelowy format: biblioteka.
