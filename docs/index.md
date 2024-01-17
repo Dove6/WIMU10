@@ -1,7 +1,7 @@
 ```{toctree}
 :hidden:
 :caption: Informacje Ogólne
-License<LICENSE.md>
+Licencja<LICENSE.md>
 Design Proposal<DESIGN_PROPOSAL.md>
 ```
 
