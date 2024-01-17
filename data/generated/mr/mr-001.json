@@ -1,0 +1,5 @@
+{
+    "tool": "https://midirandomizer.sourceforge.net/",
+    "settings": "pitch weight: 100w for all; accent by pitch: 100% for all; rhytm: 100% for all; octave weight: 100w for 5, 0w for all the rest; slide: 50% for all; accent by rhytm: 25%; accent by: pattern; root note: C; quantize: EIGHT_NOTE; quantize length: THIRTY_SECOND_NOTE; pattern length: 47",
+    "description": "",
+}

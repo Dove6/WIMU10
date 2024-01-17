@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any, List
 
 
-def calc_statistics(tokenizer: MIDITokenizer, path: str, vocab_size: int|None = None):
+def calc_statistics(tokenizer: MIDITokenizer, path: str, vocab_size: int | None = None):
     """Calculate token statistics for each tokenizer."""
     token_lengths: List[int] = []
     name = tokenizer.__class__.__name__
@@ -36,7 +36,7 @@ def calc_statistics(tokenizer: MIDITokenizer, path: str, vocab_size: int|None = 
 if __name__ == '__main__':
     tokenizers_bpe = (REMI(), REMIPlus(), MIDILike(), TSD(), Structured(), MMM())
     tokenizers = (*tokenizers_bpe, CPWord(), Octuple(), MuMIDI())
-    print("Dataset", "Sum of tokens", "Average file token length")
+    print('Dataset', 'Sum of tokens', 'Average file token length')
     # Calculate statistics for tokenized datasets.
     for tokenizer in tokenizers:
         results = calc_statistics(tokenizer, 'results/')
