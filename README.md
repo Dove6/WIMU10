@@ -12,11 +12,11 @@ Zespół w składzie:
 
 ## Raporty
 
-- [Metryki harmoniczne utworów](https://dove6.github.io/WIMU10/research/chords-metrics.html): Miary opisujący właściwości harmoniczne utworu,
-- [Metryki dynamiczne utworów](https://dove6.github.io/WIMU10/research/dynamics-metrics.html): Miary opisujący właściwości dynamiczne utworu,
-- [Embeddingi CLaMP](https://dove6.github.io/WIMU10/research/embeddings.html): Eksperyment poszukujący zależności pomiędzy utworami w embeddingach z modelu [CLaMP](https://github.com/microsoft/muzic/tree/main/clamp),
-- [Sampodobieństwo utworów](https://dove6.github.io/WIMU10/research/self_similarity.html): Pierwszy, testowy eksperyment z badaniem samopodobieństwa wewnątrz utworów,
-- [Tokenizatory MidiTok](https://dove6.github.io/WIMU10/research/tokenization.html): Eksperyment porównujący różne tokenizatory w [MidiTok](https://miditok.readthedocs.io/en/latest/) i wpływ Byte Pair Encoding na wynik tokenizacji.
+- [Metryki harmoniczne utworów](https://dove6.github.io/WIMU10/research/chords-metrics.html): miary opisujące właściwości harmoniczne utworu,
+- [Metryki dynamiczne utworów](https://dove6.github.io/WIMU10/research/dynamics-metrics.html): miary opisujące właściwości dynamiczne utworu [![Open in Colab](https://camo.githubusercontent.com/f5e0d0538a9c2972b5d413e0ace04cecd8efd828d133133933dfffec282a4e1b/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/github/Dove6/WIMU10/blob/main/notebooks/colab_dynamics_metrics.ipynb),
+- [Embeddingi CLaMP](https://dove6.github.io/WIMU10/research/embeddings.html): eksperyment poszukujący zależności pomiędzy utworami w embeddingach z modelu [CLaMP](https://github.com/microsoft/muzic/tree/main/clamp),
+- [Sampodobieństwo utworów](https://dove6.github.io/WIMU10/research/self_similarity.html): pierwszy, testowy eksperyment z badaniem samopodobieństwa wewnątrz utworów,
+- [Tokenizatory MidiTok](https://dove6.github.io/WIMU10/research/tokenization.html): eksperyment porównujący różne tokenizatory w [MidiTok](https://miditok.readthedocs.io/en/latest/) i wpływ Byte Pair Encoding na wynik tokenizacji.
 
 ## Użytkowanie
 

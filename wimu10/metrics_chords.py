@@ -1,8 +1,10 @@
 import muspy as mp
 import numpy as np
+import numpy.typing as npt
+from typing import Optional
 
 
-def chords_histogram(track: mp.Track, readable_output: str = 'midi', error_frame: int = 75) -> dict[str, int] or None:
+def chords_histogram(track: mp.Track, readable_output: str = 'midi', error_frame: int = 75) -> Optional[dict[str, int]]:
     """
     Calculates and returns the histogram of chords in the track.
     Returns the values in MIDI note format or in piano key notation.
@@ -36,7 +38,7 @@ def chords_histogram(track: mp.Track, readable_output: str = 'midi', error_frame
 
 def chords_transition_matrix(
     track: mp.Track, readable_output: str = 'midi', error_frame: int = 75
-) -> (dict[str, int], np.ndarray[float]):
+) -> Optional[tuple[dict[str, int], npt.NDArray[np.float_]]]:
     """
     Calculates the transition matrix for the chords in a track.
     Returns dictionary of unique chords and a transition matrix.
@@ -154,4 +156,4 @@ def _map_midi_to_piano(midi_note: int):
     if 21 <= midi_note <= 108:
         return notes_mapping[midi_note % 12] + str(midi_note // 12 - 1)
     else:
-        return Exception('midi_number beyond piano bounds')
+        raise Exception('midi_number beyond piano bounds')
