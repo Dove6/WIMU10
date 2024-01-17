@@ -7,12 +7,10 @@ Miary te przyjęły postać dwóch statysyk:
 
 # Zbiory danych
 
-Metryki zostały przedstawione na utworze
-"L.v.Beethoven 3mov - Piano Sonata No.4 in Eb Major Op.7" ze zbioru MusicNet. TODO: źródło
-oraz dla danych syntetycznych, wygenerowanych z wykorzystaniem różnych narzędzi, m.in.:
-- GiantMusicTransformer - różne wartości temperatury: 0.9, 0.15, 1.0, TODO: źródło + 5 słów o narzędzi + co to temperatura
-- MidiRandomizer - narzędzie do generowania losowych plików MIDI, TODO: źródło
-- TensorFlow-RNN - różne wartości temperatury: 0.25, 2.0, 3.0 oraz 10.0. TODO: źródło + 5 słów o narzędzi
+Metryki zostały przedstawione na utworze "L.v.Beethoven 3mov - Piano Sonata No.4 in Eb Major Op.7" ze zbioru MusicNet[^thickstun2017] oraz dla danych syntetycznych, wygenerowanych z wykorzystaniem różnych narzędzi, m.in.:
+- [GiantMusicTransformer][giant_music_transformer] - różne wartości temperatury: 0.9, 0.15, 1.0 ( [GiantMusicTransformer][giant_music_transformer] to nowoczesny wieloinstrumentalny transformer muzyczny. Tymczasem `temperatura` odnosi się do parametru używanego w funkcji softmax, który wpływa na stopień pewności lub różnorodność predykcji modelu. Im wartość jest wyższa tym model jest bardziej różnorodny, a im jest niższa to jest bardziej pewny siebie.),
+- [MidiRandomizer][midi_randomizer] - narzędzie do generowania losowych plików MIDI,
+- [TensorFlow-RNN][tensorflow-rnn] - różne wartości temperatury: 0.25, 2.0, 3.0 oraz 10.0 ( [TensorFlow-RNN][tensorflow-rnn] to rekurencyjna sieć neuronowa wytrenowana na podzbiorze zestawu danych [MAESTRO][maestro]).
 
 Wygenerowane dane znajdują sie w katalogu `.data\generated` w odpowiednych podfolderach:
 - `gmt` - GiantMusicTransformer,
@@ -105,3 +103,12 @@ Potencjalnym punktem rozwoju metryk jest uwzględnienie faktu, że akordy są do
 - akord jest innym akordem, ale z nut w innych oktawach,
 - akord jest ton wyżej w wybranym kluczu.
 Jest to istotne, ponieważ zbliżone do siebie akordy brzmią naturalnie dla ucha ludzkiego, a na obecnych metrykach są ułożone arbitralnie i nie widać po między nimi żadnego połączenia.
+
+# Bibliografia
+
+[^thickstun2017]: ["Learning Features of Music from Scratch", John Thickstun et al., 2017](https://arxiv.org/abs/1611.09827)
+
+[giant_music_transformer]: https://github.com/asigalov61/Giant-Music-Transformer
+[midi_randomizer]: https://midirandomizer.sourceforge.net/
+[tensorflow-rnn]: https://github.com/tensorflow/docs/blob/master/site/en/tutorials/audio/music_generation.ipynb
+[maestro]: https://magenta.tensorflow.org/datasets/maestro
